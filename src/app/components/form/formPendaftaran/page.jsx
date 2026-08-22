@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useState } from 'react';
 import {
     GraduationCap,
@@ -213,7 +215,8 @@ export default function FormRegistration({ step, setStep }) {
                 <h2 className="text-xl font-semibold text-slate-800">Pendaftaran Berhasil</h2>
 
                 <p className="text-sm text-slate-500 mt-2">
-                    Data pendaftaran berhasil dikirim dan akan diverifikasi oleh panitia. Mohon hubungi admin jika sudah menginput data
+                    Data pendaftaran berhasil dikirim dan akan diverifikasi oleh panitia. Mohon hubungi admin jika sudah
+                    menginput data
                 </p>
             </div>
         );
