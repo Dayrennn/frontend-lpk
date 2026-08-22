@@ -58,6 +58,18 @@ export const kandidatAPI = createApi({
             }),
             providesTags: ['kandidatAPI'],
         }),
+        simpanPersyaratan: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/kandidat/simpan-persyaratan/${id}`,
+                method: 'POST',
+                body: data,
+            }),
+            invalidatesTags: ['kandidatAPI'],
+        }),
+        getKandidatCalon: builder.query({
+            query: () => '/kandidat/calon-pekerja',
+            providesTags: ['kandidatAPI'],
+        }),
     }),
 });
 
@@ -68,4 +80,6 @@ export const {
     useSeeAllKandidatQuery,
     useSeeOneKandidatQuery,
     useLazyGetDownloadKandidatFileQuery,
+    useSimpanPersyaratanMutation,
+    useGetKandidatCalonQuery,
 } = kandidatAPI;

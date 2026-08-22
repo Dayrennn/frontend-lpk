@@ -5,36 +5,27 @@ import { Search, Eye, FileText, IdCard, Users, GraduationCap, Award, ChevronLeft
 import { useSeeAllKandidatQuery, useLazyGetDownloadKandidatFileQuery } from '@/hooks/api/kandidatSliceAPI';
 import Link from 'next/link';
 import { formatTanggalSimpel } from '@/hooks/helper/formatTanggal';
+import DocButton from '@/app/components/button/DocButton';
+import StatusPill from '@/app/components/statusPill';
 
-// const formatTanggal = (iso) =>
-//     new Date(iso).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+const statusColorMap = {
+    DRAFT: 'bg-slate-50 text-slate-600 border-slate-200',
+    TERVERIFIKASI: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    PERBAIKAN: 'bg-amber-50 text-amber-700 border-amber-200',
+};
 
-// Static text cells (Status / OJK / Keterangan) — display-only, so no input/focus styling.
-const cellPillClass = 'inline-block max-w-[12rem] truncate px-2.5 py-1 rounded-md text-xs text-slate-700 bg-slate-50';
+const ojkColorMap = {
+    BELUM: 'bg-slate-50 text-slate-600 border-slate-200',
+    CHECKING: 'bg-amber-50 text-amber-700 border-amber-200',
+    LOLOS: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    TIDAK_LOLOS: 'bg-rose-50 text-rose-700 border-rose-200',
+    MANDIRI: 'bg-blue-50 text-blue-700 border-blue-200',
+};
 
-function DocButton({ label, icon: Icon, url, onClick }) {
-    // TODO: sambungkan ke endpoint download API (misal /api/kandidat/:id/dokumen/:jenis)
-    if (!url) {
-        return (
-            <span
-                title={label + ' — belum diunggah'}
-                className="w-6 h-6 rounded-md flex items-center justify-center bg-slate-100 text-slate-300 cursor-not-allowed"
-            >
-                <Icon className="w-3.5 h-3.5" />
-            </span>
-        );
-    }
-    return (
-        <button
-            type="button"
-            onClick={onClick}
-            title={'Unduh ' + label}
-            className="w-6 h-6 rounded-md flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors"
-        >
-            <Icon className="w-3.5 h-3.5" />
-        </button>
-    );
-}
+const danaColorMap = {
+    MANDIRI: 'bg-blue-50 text-blue-700 border-blue-200',
+    TALANG: 'bg-violet-50 text-violet-700 border-violet-200',
+};
 
 export default function DataKandidatPage() {
     const [page, setPage] = useState(1);
@@ -156,8 +147,9 @@ export default function DataKandidatPage() {
                                 <th className="px-5 py-3 font-semibold">OJK</th>
                                 <th className="px-5 py-3 font-semibold">Dana</th>
                                 <th className="px-5 py-3 font-semibold">Tanggal Daftar</th>
-                                <th className="px-5 py-3 font-semibold text-right">Keterangan</th>
-                                <th className="px-5 py-3 font-semibold text-right">Aksi</th>
+                                <th className="px-5 py-3 font-semibold">Keterangan</th>
+                                <th className="px-5 py-3 font-semibold">Aksi</th>
+                                <th className="px-5 py-3 font-semibold">Riwayat</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
@@ -223,21 +215,15 @@ export default function DataKandidatPage() {
                                     </td>
 
                                     <td className="px-5 py-3.5">
-                                        <span className={cellPillClass} title={k.status}>
-                                            {k.status || '-'}
-                                        </span>
+                                        <StatusPill value={k.status} colorMap={statusColorMap} />
                                     </td>
 
                                     <td className="px-5 py-3.5">
-                                        <span className={cellPillClass} title={k.ojk}>
-                                            {k.ojk || '-'}
-                                        </span>
+                                        <StatusPill value={k.ojk} colorMap={ojkColorMap} />
                                     </td>
 
                                     <td className="px-5 py-3.5">
-                                        <span className={cellPillClass} title={k.ojk}>
-                                            {k.dana || '-'}
-                                        </span>
+                                        <StatusPill value={k.dana} colorMap={danaColorMap} />
                                     </td>
 
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">
@@ -245,7 +231,10 @@ export default function DataKandidatPage() {
                                     </td>
 
                                     <td className="px-5 py-3.5 text-right">
-                                        <span className={cellPillClass} title={k.keterangan}>
+                                        <span
+                                            className="inline-block max-w-[12rem] truncate px-2.5 py-1 rounded-md text-xs text-slate-700 bg-slate-50"
+                                            title={k.keterangan}
+                                        >
                                             {k.keterangan || '-'}
                                         </span>
                                     </td>
@@ -258,6 +247,12 @@ export default function DataKandidatPage() {
                                             <Eye className="w-3.5 h-3.5" />
                                             Edit
                                         </Link>
+                                    </td>
+
+                                    <td className="px-5 py-3.5 text-right">
+                                        <span className="inline-block max-w-[12rem] truncate px-2.5 py-1 rounded-md text-xs text-slate-700 bg-slate-50">
+                                            di update oleh: {k.user?.username}
+                                        </span>
                                     </td>
                                 </tr>
                             ))}

@@ -41,6 +41,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
 
     const isDashboard = pathname === dashboardLink;
     const isKandidat = pathname?.startsWith('/data-kandidat');
+    const isCalonPMI = pathname?.startsWith('/data-calon-pmi');
 
     return (
         <>
@@ -119,6 +120,17 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                     >
                         <Users className="w-4 h-4 shrink-0" />
                         Data Kandidat Masuk
+                    </Link>
+                    <Link
+                        href="/data-calon-pmi"
+                        className={
+                            isCalonPMI
+                                ? 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold'
+                                : 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
+                        }
+                    >
+                        <Users className="w-4 h-4 shrink-0" />
+                        Data Calon PMI
                     </Link>
                 </nav>
 
