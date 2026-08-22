@@ -1,23 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { GraduationCap, Eye, EyeOff, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { GraduationCap } from 'lucide-react';
 import FormLogin from '../components/form/formLogin';
 
-const inputClass =
-    'w-full px-3.5 py-2.5 border border-slate-300 rounded-md text-sm text-slate-800 bg-white transition-colors ' +
-    'placeholder:text-slate-400 focus:outline-none focus:border-[#16223B] focus:ring-2 focus:ring-[#16223B]/10';
-
 export default function LoginPage() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
 
     return (
         <div
