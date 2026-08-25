@@ -1,6 +1,10 @@
 'use client';
 import { useState } from 'react';
-import { useSeeKandidatForClassQuery, useCreateKandidatForClassMutation } from '@/hooks/api/kandidatSliceAPI';
+import {
+    useSeeKandidatForClassQuery,
+    useCreateKandidatForClassMutation,
+    useSimpanPersyaratanMutation,
+} from '@/hooks/api/kandidatSliceAPI';
 import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import StatusPill from '@/app/components/statusPill';
 import StatusDropdown from '@/app/components/statusDropdown';
@@ -62,6 +66,16 @@ export default function DataBelumDapatKelas() {
     const handlePageSizeChange = (e) => {
         setPageSize(Number(e.target.value));
         setPage(1);
+    };
+
+    const [simpanPersyaratan] = useSimpanPersyaratanMutation();
+
+    const handleFieldChange = async (id, field, value) => {
+        try {
+            await simpanPersyaratan({ id, data: { [field]: value } }).unwrap();
+        } catch (error) {
+            console.error('Gagal menyimpan:', error);
+        }
     };
 
     return (

@@ -12,6 +12,7 @@ const statusColorMap = {
     DRAFT: 'bg-slate-50 text-slate-600 border-slate-200',
     TERVERIFIKASI: 'bg-emerald-50 text-emerald-700 border-emerald-200',
     PERBAIKAN: 'bg-amber-50 text-amber-700 border-amber-200',
+    MUNDUR: 'bg-slate-50 text-slate-600 border-slate-200',
 };
 
 const ojkColorMap = {

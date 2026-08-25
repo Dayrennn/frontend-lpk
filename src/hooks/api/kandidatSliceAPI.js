@@ -88,6 +88,24 @@ export const kandidatAPI = createApi({
                 `/kandidat/kelas-inggris?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
             providesTags: ['kandidatAPI'],
         }),
+        seeAllKandidatJepang: builder.query({
+            query: ({ page = 1, limit = 10, search = '' }) =>
+                `/kandidat/kelas-jepang?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
+            providesTags: ['kandidatAPI'],
+        }),
+        seeAllKandidatMundur: builder.query({
+            query: ({ page = 1, limit = 10, search = '' }) =>
+                `/kandidat/kandidat-mundur?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
+            providesTags: ['kandidatAPI'],
+        }),
+        seeCheckKodeKandidat: builder.mutation({
+            query: (kodeRegistrasi) => ({
+                url: '/kandidat/check',
+                method: 'POST',
+                body: { kodeRegistrasi },
+            }),
+            invalidatesTags: ['kandidatAPi'],
+        }),
     }),
 });
 
@@ -102,5 +120,8 @@ export const {
     useGetKandidatCalonQuery,
     useSeeKandidatForClassQuery,
     useCreateKandidatForClassMutation,
-    useSeeAllKandidatInggrisQuery
+    useSeeAllKandidatInggrisQuery,
+    useSeeAllKandidatJepangQuery,
+    useSeeAllKandidatMundurQuery,
+    useSeeCheckKodeKandidatMutation,
 } = kandidatAPI;

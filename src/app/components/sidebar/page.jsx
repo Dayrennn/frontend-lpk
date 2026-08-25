@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { GraduationCap, LayoutDashboard, Users, LogOut, ChevronDown, X } from 'lucide-react';
+import { GraduationCap, LayoutDashboard, Users, LogOut, ChevronDown, X, UsersRound, UserCheck, School, UserRoundX, Languages, BookOpen, UserMinus } from 'lucide-react';
 import Link from 'next/link';
 import LogoutModal from '../modal/logoutModal';
 import { useLogoutMutation, useGetMeQuery } from '@/hooks/api/userSliceAPI';
@@ -44,6 +44,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
     const isKandidat = pathname?.startsWith('/data-kandidat');
     const isCalonPMI = pathname?.startsWith('/data-calon-pmi');
     const isKelas = pathname?.startsWith('/kelas');
+    const isKandidatMundur = pathname?.startsWith('/data-mundur');
 
     return (
         <>
@@ -101,6 +102,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
 
                 {/* Navigasi */}
                 <nav className="relative flex-1 px-3 py-4 space-y-1">
+                    {/* Dashboard */}
                     <Link
                         href={dashboardLink}
                         className={
@@ -112,6 +114,8 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                         <LayoutDashboard className="w-4 h-4 shrink-0" />
                         Dashboard
                     </Link>
+
+                    {/* Data Kandidat */}
                     <Link
                         href="/data-kandidat"
                         className={
@@ -120,9 +124,11 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                                 : 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
                         }
                     >
-                        <Users className="w-4 h-4 shrink-0" />
-                        Data Kandidat Masuk
+                        <UsersRound className="w-4 h-4 shrink-0" />
+                        Data Kandidat
                     </Link>
+
+                    {/* Data Calon PMI */}
                     <Link
                         href="/data-calon-pmi"
                         className={
@@ -131,11 +137,12 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                                 : 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
                         }
                     >
-                        <Users className="w-4 h-4 shrink-0" />
+                        <UserCheck className="w-4 h-4 shrink-0" />
                         Data Calon PMI
                     </Link>
+
+                    {/* Data Kelas */}
                     <div>
-                        {/* Menu Data Kelas */}
                         <button
                             type="button"
                             onClick={() => setKelasOpen(!kelasOpen)}
@@ -146,7 +153,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                             }
                         >
                             <div className="flex items-center gap-3">
-                                <Users className="w-4 h-4 shrink-0" />
+                                <School className="w-4 h-4 shrink-0" />
                                 Data Kelas
                             </div>
 
@@ -158,40 +165,60 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                         {/* Submenu */}
                         {kelasOpen && (
                             <div className="ml-7 mt-1 space-y-1">
+                                {/* Belum Dapat Kelas */}
                                 <Link
                                     href="/data-kelas/belum-dapat"
                                     className={
-                                        pathname === '/kelas/inggris'
-                                            ? 'block px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
-                                            : 'block px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
+                                        pathname === '/data-kelas/belum-dapat'
+                                            ? 'flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
+                                            : 'flex items-center gap-2 px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
                                     }
                                 >
+                                    <UserRoundX className="w-3.5 h-3.5 shrink-0" />
                                     Belum Dapat Kelas
                                 </Link>
+
+                                {/* Kelas Inggris */}
                                 <Link
                                     href="/data-kelas/inggris"
                                     className={
-                                        pathname === '/kelas/inggris'
-                                            ? 'block px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
-                                            : 'block px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
+                                        pathname === '/data-kelas/inggris'
+                                            ? 'flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
+                                            : 'flex items-center gap-2 px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
                                     }
                                 >
+                                    <Languages className="w-3.5 h-3.5 shrink-0" />
                                     Kelas Inggris
                                 </Link>
 
+                                {/* Kelas Jepang */}
                                 <Link
                                     href="/data-kelas/jepang"
                                     className={
-                                        pathname === '/kelas/jepang'
-                                            ? 'block px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
-                                            : 'block px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
+                                        pathname === '/data-kelas/jepang'
+                                            ? 'flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
+                                            : 'flex items-center gap-2 px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
                                     }
                                 >
+                                    <BookOpen className="w-3.5 h-3.5 shrink-0" />
                                     Kelas Jepang
                                 </Link>
                             </div>
                         )}
                     </div>
+
+                    {/* Kandidat Mundur */}
+                    <Link
+                        href="/data-mundur"
+                        className={
+                            isKandidatMundur
+                                ? 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold'
+                                : 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
+                        }
+                    >
+                        <UserMinus className="w-4 h-4 shrink-0" />
+                        Data Kandidat Mundur
+                    </Link>
                 </nav>
 
                 {/* Logout */}

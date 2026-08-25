@@ -1,10 +1,17 @@
 'use client';
-import StatusDropdown from '@/app/components/statusDropdown';
-import StatusPill from '@/app/components/statusPill';
-import { useSeeAllKandidatJepangQuery, useCreateKandidatForClassMutation } from '@/hooks/api/kandidatSliceAPI';
-import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
+
 import { useState } from 'react';
+import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useSeeAllKandidatMundurQuery } from '@/hooks/api/kandidatSliceAPI';
 import { formatTanggalSimpel } from '@/hooks/helper/formatTanggal';
+import StatusPill from '@/app/components/statusPill';
+
+const statusColorMap = {
+    DRAFT: 'bg-slate-50 text-slate-600 border-slate-200',
+    TERVERIFIKASI: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    PERBAIKAN: 'bg-amber-50 text-amber-700 border-amber-200',
+    MUNDUR: 'bg-slate-50 text-slate-600 border-slate-200',
+};
 
 const ojkColorMap = {
     BELUM: 'bg-slate-50 text-slate-600 border-slate-200',
@@ -14,34 +21,23 @@ const ojkColorMap = {
     MANDIRI: 'bg-blue-50 text-blue-700 border-blue-200',
 };
 
-const suratPernyataanColorMap = {
-    BELUM: 'bg-slate-50 text-slate-600 border-slate-200',
+const danaColorMap = {
     MANDIRI: 'bg-blue-50 text-blue-700 border-blue-200',
+    TALANG: 'bg-violet-50 text-violet-700 border-violet-200',
 };
 
-const biayaPelatihanStyle = {
-    BELUM: 'bg-rose-50 text-rose-700 border-rose-200',
-    DP: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_1: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_2: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_3: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_4: 'bg-amber-50 text-amber-700 border-amber-200',
-    LUNAS: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-};
+export default function DataKandidatMundur() {
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const [keyword, setKeyword] = useState('');
 
-export default function DataKelasJepang() {
-    const [page, setPage] = useState();
-    const [pageSize, setPageSize] = useState();
-    const [keyword, setKeyword] = useState();
-    const { data, isLoading, isError } = useSeeAllKandidatJepangQuery({ page, limit: pageSize, search: keyword });
+    const { data, isLoading, isError } = useSeeAllKandidatMundurQuery({ page, limit: pageSize, search: keyword });
+
     const kandidatList = data?.data?.kandidat ?? [];
-    const pagination = data?.data?.pagination ?? {};
+    const pagination = data?.data?.pagination ?? { page: 1, limit: 10, total: 0, totalPages: 1 };
 
     const currentPage = pagination.page ?? 1;
     const totalPages = pagination.totalPages ?? 1;
-
-    const goToPrevPage = () => setPage((p) => Math.max(1, p - 1));
-    const goToNextPage = () => setPage((p) => Math.min(totalPages, p + 1));
 
     const handleKeywordChange = (e) => {
         setKeyword(e.target.value);
@@ -53,23 +49,19 @@ export default function DataKelasJepang() {
         setPage(1);
     };
 
-    const [simpan] = useCreateKandidatForClassMutation();
-
-    const handleTambah = async (kandidatId, tipeKelas) => {
-        try {
-            await simpan({ kandidatId, tipeKelas });
-        } catch (error) {
-            console.error('Gagal menyimpan:', error);
-        }
-    };
+    const goToPrevPage = () => setPage((p) => Math.max(1, p - 1));
+    const goToNextPage = () => setPage((p) => Math.min(totalPages, p + 1));
 
     return (
         <>
             <div className="mb-7">
-                <h1 className="font-serif text-2xl font-semibold text-slate-800">Data Kelas Jepang</h1>
-                <p className="text-sm text-slate-400 mt-0.5">Daftar kandidat kelas inggris</p>
+                <h1 className="font-serif text-2xl font-semibold text-slate-800">Data Kandidat Mundur</h1>
+                <p className="text-sm text-slate-400 mt-0.5">
+                    Daftar kandidat yang mendaftar program pelatihan &amp; penempatan kerja.
+                </p>
             </div>
 
+            {/* Ringkasan */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
                 <div className="bg-white border border-slate-200 rounded-xl p-5">
                     <p className="text-xl font-semibold text-slate-800">{pagination.total ?? 0}</p>
@@ -77,6 +69,7 @@ export default function DataKelasJepang() {
                 </div>
             </div>
 
+            {/* Pencarian */}
             <div className="mb-4">
                 <div className="relative max-w-xs">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -89,6 +82,8 @@ export default function DataKelasJepang() {
                     />
                 </div>
             </div>
+
+            {/* Tabel */}
             <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm">
@@ -96,21 +91,18 @@ export default function DataKelasJepang() {
                             <tr className="text-left text-[11px] uppercase tracking-wide text-slate-400 border-b border-slate-100">
                                 <th className="px-5 py-3 font-semibold">Nama</th>
                                 <th className="px-5 py-3 font-semibold">Umur</th>
-                                <th className="px-5 py-3 font-semibold">Tanggal Masuk</th>
-                                <th className="px-5 py-3 font-semibold">No. Handphone</th>
+                                <th className="px-5 py-3 font-semibold">Tujuan</th>
                                 <th className="px-5 py-3 font-semibold">Pendidikan</th>
                                 <th className="px-5 py-3 font-semibold">Asal</th>
-                                <th className="px-5 py-3 font-semibold">Tujuan</th>
-                                <th className="px-5 py-3 font-semibold">BI Checking</th>
-                                <th className="px-5 py-3 font-semibold">Biaya Pelatihan</th>
-                                <th className="px-5 py-3 font-semibold">Surat Pernyataan</th>
-                                <th className="px-5 py-3 font-semibold text-center">Kelas</th>
+                                <th className="px-5 py-3 font-semibold">Status</th>
+                                <th className="px-5 py-3 font-semibold">OJK</th>
+                                <th className="px-5 py-3 font-semibold">Tanggal Daftar</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {kandidatList.length === 0 && (
                                 <tr>
-                                    <td colSpan={11} className="px-5 py-10 text-center text-sm text-slate-400">
+                                    <td colSpan={9} className="px-5 py-10 text-center text-sm text-slate-400">
                                         {isLoading
                                             ? 'Memuat data...'
                                             : isError
@@ -125,52 +117,25 @@ export default function DataKelasJepang() {
                                     <td className="px-5 py-3.5 font-medium text-slate-700 capitalize whitespace-nowrap">
                                         {k.nama}
                                     </td>
+                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.umur} th</td>
                                     <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">
-                                        {k.umur}
+                                        {k.tujuan}
                                     </td>
-                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">
-                                        {formatTanggalSimpel(k.createdAt)}
-                                    </td>
-                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.telephone}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.pendidikan}</td>
-                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.asal}</td>
-                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.tujuan}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">
+                                        {k.asal}
+                                    </td>
+
+                                    <td className="px-5 py-3.5">
+                                        <StatusPill value={k.status} colorMap={statusColorMap} />
+                                    </td>
 
                                     <td className="px-5 py-3.5">
                                         <StatusPill value={k.ojk} colorMap={ojkColorMap} />
                                     </td>
 
-                                    <td className="px-5 py-3.5">
-                                        <StatusDropdown
-                                            value={k.biayaPelatihan ?? 'BELUM'}
-                                            onChange={(e) => handleFieldChange(k.id, 'biayaPelatihan', e.target.value)}
-                                            colorMap={biayaPelatihanStyle}
-                                            options={[
-                                                { value: 'BELUM', label: 'Belum' },
-                                                { value: 'DP', label: 'DP' },
-                                                { value: 'BULAN_1', label: 'Bulan 1' },
-                                                { value: 'BULAN_2', label: 'Bulan 2' },
-                                                { value: 'BULAN_3', label: 'Bulan 3' },
-                                                { value: 'BULAN_4', label: 'Bulan 4' },
-                                                { value: 'LUNAS', label: 'Lunas' },
-                                            ]}
-                                        />
-                                    </td>
-
-                                    <td className="px-5 py-3.5">
-                                        <StatusPill value={k.suratPernyataan} colorMap={suratPernyataanColorMap} />
-                                    </td>
-
-                                    <td className="px-5 py-3.5">
-                                        <StatusDropdown
-                                            value={k.kelasInggrisId ? 'inggris' : k.kelasJepangId ? 'jepang' : 'belum'}
-                                            onChange={(e) => handleTambah(k.id, e.target.value)}
-                                            options={[
-                                                { value: 'belum', label: 'Belum' },
-                                                { value: 'inggris', label: 'Kelas Inggris' },
-                                                { value: 'jepang', label: 'Kelas Jepang' },
-                                            ]}
-                                        />
+                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">
+                                        {formatTanggalSimpel(k.createdAt)}
                                     </td>
                                 </tr>
                             ))}

@@ -97,6 +97,7 @@ export default function Akademik({
 
                     <option value="TERVERIFIKASI">TERVERIFIKASI</option>
                     <option value="PERBAIKAN">PERBAIKAN</option>
+                    <option value="MUNDUR">MUNDUR</option>
                 </select>
             </div>
 

@@ -18,6 +18,7 @@ import {
     AlertCircle,
 } from 'lucide-react';
 import { useCreateKandidatMutation } from '@/hooks/api/kandidatSliceAPI';
+import Link from 'next/link';
 
 const NEGARA_OPTIONS = ['Jepang', 'Kuwait', 'Turkey', 'Albania', 'Montenegro', 'Lainnya'];
 const PENDIDIKAN_OPTIONS = ['SD', 'SMP', 'SMA/SMK', 'D3', 'S1', 'S2', 'S3'];
@@ -78,6 +79,7 @@ export default function FormRegistration({ step, setStep }) {
     const [errors, setErrors] = useState({});
 
     const [createKandidat, { data, isLoading, isError }] = useCreateKandidatMutation();
+    const kode = data?.data ?? {};
     const [showSuccess, setShowSuccess] = useState(null);
 
     const clearError = (field) => {
@@ -208,16 +210,52 @@ export default function FormRegistration({ step, setStep }) {
     if (showSuccess) {
         return (
             <div className="px-6 sm:px-8 py-12 text-center">
-                <div className="flex justify-center mb-4">
-                    <CircleCheck className="w-16 h-16 text-emerald-500" />
+                {/* Icon */}
+                <div className="flex justify-center mb-5">
+                    <div className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center">
+                        <CircleCheck className="w-12 h-12 text-emerald-500" />
+                    </div>
                 </div>
 
-                <h2 className="text-xl font-semibold text-slate-800">Pendaftaran Berhasil</h2>
+                {/* Title */}
+                <h2 className="text-2xl font-semibold text-slate-800">Pendaftaran Berhasil</h2>
 
-                <p className="text-sm text-slate-500 mt-2">
-                    Data pendaftaran berhasil dikirim dan akan diverifikasi oleh panitia. Mohon hubungi admin jika sudah
-                    menginput data
+                <p className="text-sm text-slate-500 mt-2 max-w-md mx-auto leading-relaxed">
+                    Data pendaftaran berhasil dikirim dan akan diverifikasi oleh panitia. Silakan simpan kode registrasi
+                    berikut untuk keperluan pengecekan data.
                 </p>
+
+                {/* Kode Registrasi */}
+                <div className="mt-6 max-w-sm mx-auto">
+                    <div className="rounded-xl border border-[#D9B25C]/40 bg-[#D9B25C]/10 px-6 py-5">
+                        <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+                            Kode Registrasi
+                        </p>
+
+                        <p className="mt-2 text-3xl font-bold tracking-[0.2em] text-[#16223B]">
+                            {kode?.kodeRegistrasi}
+                        </p>
+
+                        <p className="mt-2 text-xs text-slate-400">
+                            Simpan kode ini untuk pengecekan status pendaftaran.
+                        </p>
+
+                        {/* Tombol Cek Status */}
+                        <Link
+                            href="/verifikasi"
+                            className="mt-5 w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#16223B] px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#1e2d4d] hover:shadow-md active:scale-[0.98]"
+                        >
+                            Cek Status Pendaftaran
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Informasi */}
+                <div className="mt-6 max-w-md mx-auto rounded-lg bg-slate-50 border border-slate-200 px-4 py-3">
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                        Mohon hubungi admin apabila data pendaftaran sudah diinput atau terdapat perubahan pada data.
+                    </p>
+                </div>
             </div>
         );
     }
