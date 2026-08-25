@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 export default function Sidebar({ isOpen = false, onClose = () => {} }) {
     const pathname = usePathname();
     const [profileOpen, setProfileOpen] = useState(false);
+    const [kelasOpen, setKelasOpen] = useState(false);
 
     const [logout, { isLoading }] = useLogoutMutation();
     const [showModalLogout, setShowModalLogout] = useState(false);
@@ -42,6 +43,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
     const isDashboard = pathname === dashboardLink;
     const isKandidat = pathname?.startsWith('/data-kandidat');
     const isCalonPMI = pathname?.startsWith('/data-calon-pmi');
+    const isKelas = pathname?.startsWith('/kelas');
 
     return (
         <>
@@ -132,6 +134,64 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                         <Users className="w-4 h-4 shrink-0" />
                         Data Calon PMI
                     </Link>
+                    <div>
+                        {/* Menu Data Kelas */}
+                        <button
+                            type="button"
+                            onClick={() => setKelasOpen(!kelasOpen)}
+                            className={
+                                isKelas
+                                    ? 'w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold'
+                                    : 'w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
+                            }
+                        >
+                            <div className="flex items-center gap-3">
+                                <Users className="w-4 h-4 shrink-0" />
+                                Data Kelas
+                            </div>
+
+                            <ChevronDown
+                                className={`w-4 h-4 transition-transform duration-200 ${kelasOpen ? 'rotate-180' : ''}`}
+                            />
+                        </button>
+
+                        {/* Submenu */}
+                        {kelasOpen && (
+                            <div className="ml-7 mt-1 space-y-1">
+                                <Link
+                                    href="/data-kelas/belum-dapat"
+                                    className={
+                                        pathname === '/kelas/inggris'
+                                            ? 'block px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
+                                            : 'block px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
+                                    }
+                                >
+                                    Belum Dapat Kelas
+                                </Link>
+                                <Link
+                                    href="/data-kelas/inggris"
+                                    className={
+                                        pathname === '/kelas/inggris'
+                                            ? 'block px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
+                                            : 'block px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
+                                    }
+                                >
+                                    Kelas Inggris
+                                </Link>
+
+                                <Link
+                                    href="/data-kelas/jepang"
+                                    className={
+                                        pathname === '/kelas/jepang'
+                                            ? 'block px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
+                                            : 'block px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
+                                    }
+                                >
+                                    Kelas Jepang
+                                </Link>
+                            </div>
+                        )}
+                    </div>
                 </nav>
 
                 {/* Logout */}

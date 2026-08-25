@@ -70,6 +70,24 @@ export const kandidatAPI = createApi({
             query: () => '/kandidat/calon-pekerja',
             providesTags: ['kandidatAPI'],
         }),
+        seeKandidatForClass: builder.query({
+            query: ({ page = 1, limit = 10, search = '' } = {}) =>
+                `/kandidat/kandidat-kelas?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
+            providesTags: ['kandidatAPI'],
+        }),
+        createKandidatForClass: builder.mutation({
+            query: ({ kandidatId, tipeKelas }) => ({
+                url: `/kandidat/${kandidatId}/kelas`,
+                method: 'POST',
+                body: { tipeKelas },
+            }),
+            invalidatesTags: ['kandidatAPI'],
+        }),
+        seeAllKandidatInggris: builder.query({
+            query: ({ page = 1, limit = 10, search = '' }) =>
+                `/kandidat/kelas-inggris?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
+            providesTags: ['kandidatAPI'],
+        }),
     }),
 });
 
@@ -82,4 +100,7 @@ export const {
     useLazyGetDownloadKandidatFileQuery,
     useSimpanPersyaratanMutation,
     useGetKandidatCalonQuery,
+    useSeeKandidatForClassQuery,
+    useCreateKandidatForClassMutation,
+    useSeeAllKandidatInggrisQuery
 } = kandidatAPI;

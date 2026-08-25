@@ -1,6 +1,6 @@
-import { ChevronDown } from "lucide-react";
+import { ChevronDown } from 'lucide-react';
 
-export default function StatusDropdown({ value, onChange, options, colorMap }) {
+export default function StatusDropdown({ value, onChange, options, colorMap = {} }) {
     const colorClass = colorMap[value] ?? 'bg-slate-50 text-slate-700 border-slate-200';
 
     return (

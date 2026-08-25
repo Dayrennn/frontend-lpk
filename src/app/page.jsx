@@ -92,6 +92,13 @@ export default function LandingPage() {
                             Daftar Sekarang
                             <ArrowRight className="w-4 h-4" />
                         </Link>
+                        <Link
+                            href={'/verifikasi'}
+                            className="mt-2 inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 rounded-md bg-[#16223B] text-white text-sm font-semibold hover:bg-[#0F1A2E] transition-colors"
+                        >
+                            Sudah pernah daftar? Cek status mu disini
+                            <ArrowRight className="w-4 h-4" />
+                        </Link>
 
                         <p className="text-[11px] text-slate-400 mt-3">
                             Pendaftaran tidak dipungut biaya · Kuota tiap gelombang terbatas
