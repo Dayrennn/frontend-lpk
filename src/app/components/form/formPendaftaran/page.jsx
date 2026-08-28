@@ -395,7 +395,7 @@ export default function FormRegistration({ step, setStep }) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">
-                                    Asal Daerah (Sesuai KTP)<span className="text-rose-600 ml-1">*</span>
+                                    Alamat Lengkap (Sesuai KTP)<span className="text-rose-600 ml-1">*</span>
                                 </label>
                                 <input
                                     className={inputClass + ' ' + borderClass('asal')}
