@@ -1,36 +1,35 @@
-'use client';
-import StatusPill from '@/app/components/statusPill';
-import { useGetKandidatCalonQuery, useSimpanPersyaratanMutation } from '@/hooks/api/kandidatSliceAPI';
-import { ChevronLeft, ChevronRight, Search, ChevronDown } from 'lucide-react';
-import { useState } from 'react';
-import StatusDropdown from '@/app/components/statusDropdown';
+"use client";
+import StatusPill from "@/app/components/statusPill";
+import { useGetKandidatCalonQuery, useSimpanPersyaratanMutation } from "@/hooks/api/kandidatSliceAPI";
+import { ChevronLeft, ChevronRight, Search, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import StatusDropdown from "@/app/components/dropdown/statusDropdown";
 
 const suratPernyataanStyle = {
-    SUDAH: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    BELUM: 'bg-rose-50 text-rose-700 border-rose-200',
+    SUDAH: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    BELUM: "bg-rose-50 text-rose-700 border-rose-200",
 };
 const ojkColorMap = {
-    BELUM: 'bg-slate-50 text-slate-600 border-slate-200',
-    CHECKING: 'bg-amber-50 text-amber-700 border-amber-200',
-    LOLOS: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    TIDAK_LOLOS: 'bg-rose-50 text-rose-700 border-rose-200',
-    MANDIRI: 'bg-blue-50 text-blue-700 border-blue-200',
+    BELUM: "bg-slate-50 text-slate-600 border-slate-200",
+    CHECKING: "bg-amber-50 text-amber-700 border-amber-200",
+    LOLOS: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    TIDAK_LOLOS: "bg-rose-50 text-rose-700 border-rose-200",
+    MANDIRI: "bg-blue-50 text-blue-700 border-blue-200",
 };
 const biayaPelatihanStyle = {
-    BELUM: 'bg-rose-50 text-rose-700 border-rose-200',
-    DP: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_1: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_2: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_3: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_4: 'bg-amber-50 text-amber-700 border-amber-200',
-    LUNAS: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    BELUM: "bg-rose-50 text-rose-700 border-rose-200",
+    DP: "bg-amber-50 text-amber-700 border-amber-200",
+    BULAN_1: "bg-amber-50 text-amber-700 border-amber-200",
+    BULAN_2: "bg-amber-50 text-amber-700 border-amber-200",
+    BULAN_3: "bg-amber-50 text-amber-700 border-amber-200",
+    BULAN_4: "bg-amber-50 text-amber-700 border-amber-200",
+    LUNAS: "bg-emerald-50 text-emerald-700 border-emerald-200",
 };
-
 
 export default function DataCalonPekerja() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-    const [keyword, setKeyword] = useState('');
+    const [keyword, setKeyword] = useState("");
 
     const { data, isLoading, isError } = useGetKandidatCalonQuery({ page, limit: pageSize, search: keyword });
     const calonList = data?.data?.kandidat ?? [];
@@ -55,7 +54,7 @@ export default function DataCalonPekerja() {
         try {
             await simpan({ id, data: { [field]: value } }).unwrap();
         } catch (error) {
-            console.error('Gagal menyimpan:', error);
+            console.error("Gagal menyimpan:", error);
         }
     };
 
@@ -65,9 +64,7 @@ export default function DataCalonPekerja() {
         <>
             <div className="mb-7">
                 <h1 className="font-serif text-2xl font-semibold text-slate-800">Data Calon PMI</h1>
-                <p className="text-sm text-slate-400 mt-0.5">
-                    Daftar kandidat yang telah lolos BI Checking &amp; dana Mandiri.
-                </p>
+                <p className="text-sm text-slate-400 mt-0.5">Daftar kandidat yang telah lolos BI Checking &amp; dana Mandiri.</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
@@ -118,26 +115,16 @@ export default function DataCalonPekerja() {
                             {calonList.length === 0 && (
                                 <tr>
                                     <td colSpan={11} className="px-5 py-10 text-center text-sm text-slate-400">
-                                        {isLoading
-                                            ? 'Memuat data...'
-                                            : isError
-                                              ? 'Gagal memuat data kandidat.'
-                                              : 'Tidak ada kandidat yang cocok dengan pencarian.'}
+                                        {isLoading ? "Memuat data..." : isError ? "Gagal memuat data kandidat." : "Tidak ada kandidat yang cocok dengan pencarian."}
                                     </td>
                                 </tr>
                             )}
 
                             {calonList.map((k) => (
                                 <tr key={k.id} className="hover:bg-slate-50/60 align-top">
-                                    <td className="px-5 py-3.5 font-medium text-slate-700 capitalize whitespace-nowrap">
-                                        {k.nama}
-                                    </td>
-                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">
-                                        {k.umur}
-                                    </td>
-                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">
-                                        {k.telephone}
-                                    </td>
+                                    <td className="px-5 py-3.5 font-medium text-slate-700 capitalize whitespace-nowrap">{k.nama}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">{k.umur}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">{k.telephone}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.pendidikan}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.asal}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.tujuan}</td>
@@ -148,28 +135,28 @@ export default function DataCalonPekerja() {
 
                                     <td className="px-5 py-3.5">
                                         <StatusDropdown
-                                            value={k.suratPernyataan ?? 'BELUM'}
-                                            onChange={(e) => handleFieldChange(k.id, 'suratPernyataan', e.target.value)}
+                                            value={k.suratPernyataan ?? "BELUM"}
+                                            onChange={(e) => handleFieldChange(k.id, "suratPernyataan", e.target.value)}
                                             colorMap={suratPernyataanStyle}
                                             options={[
-                                                { value: 'SUDAH', label: 'Sudah' },
-                                                { value: 'BELUM', label: 'Belum' },
+                                                { value: "SUDAH", label: "Sudah" },
+                                                { value: "BELUM", label: "Belum" },
                                             ]}
                                         />
                                     </td>
                                     <td className="px-5 py-3.5">
                                         <StatusDropdown
-                                            value={k.biayaPelatihan ?? 'BELUM'}
-                                            onChange={(e) => handleFieldChange(k.id, 'biayaPelatihan', e.target.value)}
+                                            value={k.biayaPelatihan ?? "BELUM"}
+                                            onChange={(e) => handleFieldChange(k.id, "biayaPelatihan", e.target.value)}
                                             colorMap={biayaPelatihanStyle}
                                             options={[
-                                                { value: 'BELUM', label: 'Belum' },
-                                                { value: 'DP', label: 'DP' },
-                                                { value: 'BULAN_1', label: 'Bulan 1' },
-                                                { value: 'BULAN_2', label: 'Bulan 2' },
-                                                { value: 'BULAN_3', label: 'Bulan 3' },
-                                                { value: 'BULAN_4', label: 'Bulan 4' },
-                                                { value: 'LUNAS', label: 'Lunas' },
+                                                { value: "BELUM", label: "Belum" },
+                                                { value: "DP", label: "DP" },
+                                                { value: "BULAN_1", label: "Bulan 1" },
+                                                { value: "BULAN_2", label: "Bulan 2" },
+                                                { value: "BULAN_3", label: "Bulan 3" },
+                                                { value: "BULAN_4", label: "Bulan 4" },
+                                                { value: "LUNAS", label: "Lunas" },
                                             ]}
                                         />
                                     </td>

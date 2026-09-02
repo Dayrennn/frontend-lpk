@@ -1,32 +1,32 @@
-'use client';
-import StatusDropdown from '@/app/components/statusDropdown';
-import StatusPill from '@/app/components/statusPill';
-import { useSeeAllKandidatInggrisQuery, useCreateKandidatForClassMutation } from '@/hooks/api/kandidatSliceAPI';
-import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
-import { useState } from 'react';
-import { formatTanggalSimpel } from '@/hooks/helper/formatTanggal';
+"use client";
+import StatusDropdown from "@/app/components/dropdown/statusDropdown";
+import StatusPill from "@/app/components/statusPill";
+import { useSeeAllKandidatInggrisQuery, useCreateKandidatForClassMutation } from "@/hooks/api/kandidatSliceAPI";
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { useState } from "react";
+import { formatTanggalSimpel } from "@/hooks/helper/formatTanggal";
 
 const ojkColorMap = {
-    BELUM: 'bg-slate-50 text-slate-600 border-slate-200',
-    CHECKING: 'bg-amber-50 text-amber-700 border-amber-200',
-    LOLOS: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    TIDAK_LOLOS: 'bg-rose-50 text-rose-700 border-rose-200',
-    MANDIRI: 'bg-blue-50 text-blue-700 border-blue-200',
+    BELUM: "bg-slate-50 text-slate-600 border-slate-200",
+    CHECKING: "bg-amber-50 text-amber-700 border-amber-200",
+    LOLOS: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    TIDAK_LOLOS: "bg-rose-50 text-rose-700 border-rose-200",
+    MANDIRI: "bg-blue-50 text-blue-700 border-blue-200",
 };
 
 const suratPernyataanColorMap = {
-    BELUM: 'bg-slate-50 text-slate-600 border-slate-200',
-    MANDIRI: 'bg-blue-50 text-blue-700 border-blue-200',
+    BELUM: "bg-slate-50 text-slate-600 border-slate-200",
+    MANDIRI: "bg-blue-50 text-blue-700 border-blue-200",
 };
 
 const biayaPelatihanStyle = {
-    BELUM: 'bg-rose-50 text-rose-700 border-rose-200',
-    DP: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_1: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_2: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_3: 'bg-amber-50 text-amber-700 border-amber-200',
-    BULAN_4: 'bg-amber-50 text-amber-700 border-amber-200',
-    LUNAS: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    BELUM: "bg-rose-50 text-rose-700 border-rose-200",
+    DP: "bg-amber-50 text-amber-700 border-amber-200",
+    BULAN_1: "bg-amber-50 text-amber-700 border-amber-200",
+    BULAN_2: "bg-amber-50 text-amber-700 border-amber-200",
+    BULAN_3: "bg-amber-50 text-amber-700 border-amber-200",
+    BULAN_4: "bg-amber-50 text-amber-700 border-amber-200",
+    LUNAS: "bg-emerald-50 text-emerald-700 border-emerald-200",
 };
 
 export default function DataKelasInggris() {
@@ -59,7 +59,7 @@ export default function DataKelasInggris() {
         try {
             await simpan({ kandidatId, tipeKelas });
         } catch (error) {
-            console.error('Gagal menyimpan:', error);
+            console.error("Gagal menyimpan:", error);
         }
     };
 
@@ -111,26 +111,16 @@ export default function DataKelasInggris() {
                             {kandidatList.length === 0 && (
                                 <tr>
                                     <td colSpan={11} className="px-5 py-10 text-center text-sm text-slate-400">
-                                        {isLoading
-                                            ? 'Memuat data...'
-                                            : isError
-                                              ? 'Gagal memuat data kandidat.'
-                                              : 'Tidak ada kandidat yang cocok dengan pencarian.'}
+                                        {isLoading ? "Memuat data..." : isError ? "Gagal memuat data kandidat." : "Tidak ada kandidat yang cocok dengan pencarian."}
                                     </td>
                                 </tr>
                             )}
 
                             {kandidatList.map((k) => (
                                 <tr key={k.id} className="hover:bg-slate-50/60 align-top">
-                                    <td className="px-5 py-3.5 font-medium text-slate-700 capitalize whitespace-nowrap">
-                                        {k.nama}
-                                    </td>
-                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">
-                                        {k.umur}
-                                    </td>
-                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">
-                                        {formatTanggalSimpel(k.createdAt)}
-                                    </td>
+                                    <td className="px-5 py-3.5 font-medium text-slate-700 capitalize whitespace-nowrap">{k.nama}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">{k.umur}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">{formatTanggalSimpel(k.createdAt)}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.telephone}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.pendidikan}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.asal}</td>
@@ -142,17 +132,17 @@ export default function DataKelasInggris() {
 
                                     <td className="px-5 py-3.5">
                                         <StatusDropdown
-                                            value={k.biayaPelatihan ?? 'BELUM'}
-                                            onChange={(e) => handleFieldChange(k.id, 'biayaPelatihan', e.target.value)}
+                                            value={k.biayaPelatihan ?? "BELUM"}
+                                            onChange={(e) => handleFieldChange(k.id, "biayaPelatihan", e.target.value)}
                                             colorMap={biayaPelatihanStyle}
                                             options={[
-                                                { value: 'BELUM', label: 'Belum' },
-                                                { value: 'DP', label: 'DP' },
-                                                { value: 'BULAN_1', label: 'Bulan 1' },
-                                                { value: 'BULAN_2', label: 'Bulan 2' },
-                                                { value: 'BULAN_3', label: 'Bulan 3' },
-                                                { value: 'BULAN_4', label: 'Bulan 4' },
-                                                { value: 'LUNAS', label: 'Lunas' },
+                                                { value: "BELUM", label: "Belum" },
+                                                { value: "DP", label: "DP" },
+                                                { value: "BULAN_1", label: "Bulan 1" },
+                                                { value: "BULAN_2", label: "Bulan 2" },
+                                                { value: "BULAN_3", label: "Bulan 3" },
+                                                { value: "BULAN_4", label: "Bulan 4" },
+                                                { value: "LUNAS", label: "Lunas" },
                                             ]}
                                         />
                                     </td>
@@ -163,12 +153,12 @@ export default function DataKelasInggris() {
 
                                     <td className="px-5 py-3.5">
                                         <StatusDropdown
-                                            value={k.kelasInggrisId ? 'inggris' : k.kelasJepangId ? 'jepang' : 'belum'}
+                                            value={k.kelasInggrisId ? "inggris" : k.kelasJepangId ? "jepang" : "belum"}
                                             onChange={(e) => handleTambah(k.id, e.target.value)}
                                             options={[
-                                                { value: 'belum', label: 'Belum' },
-                                                { value: 'inggris', label: 'Kelas Inggris' },
-                                                { value: 'jepang', label: 'Kelas Jepang' },
+                                                { value: "belum", label: "Belum" },
+                                                { value: "inggris", label: "Kelas Inggris" },
+                                                { value: "jepang", label: "Kelas Jepang" },
                                             ]}
                                         />
                                     </td>

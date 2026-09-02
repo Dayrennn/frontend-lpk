@@ -51,6 +51,8 @@ export default function EditKandidatPage() {
     const [ojk, setOjk] = useState('');
     const [pic, setPic] = useState('');
     const [keterangan, setKeterangan] = useState('');
+    const [kabupatenId, setKabupatenId] = useState('');
+    const [provinsiId, setProvinsiId] = useState('');
 
     const [cvFile, setCvFile] = useState(null);
     const [kkFile, setKkFile] = useState(null);
@@ -120,6 +122,12 @@ export default function EditKandidatPage() {
         }
         if (keterangan) {
             formData.append('keterangan', keterangan);
+        }
+        if (kabupatenId) {
+            formData.append('kabupatenId', kabupatenId);
+        }
+        if (provinsiId) {
+            formData.append('provinsiId', provinsiId);
         }
 
         if (dokumenBaru.cv) {
@@ -212,8 +220,10 @@ export default function EditKandidatPage() {
                                             (kandidatList.tgllahir ? kandidatList.tgllahir.split('T')[0] : '')
                                         }
                                         setTgllahir={setTgllahir}
-                                        asal={asal || kandidatList.asal || ''}
-                                        setAsal={setAsal}
+                                        kabupatenId={kabupatenId || kandidatList.kabupaten?.id || ''}
+                                        setKabupatenId={setKabupatenId}
+                                        provinsiId={provinsiId || kandidatList.provinsi?.id || ''}
+                                        setProvinsiId={setProvinsiId}
                                         telephone={telephone || kandidatList.telephone || ''}
                                         setTelephone={setTelephone}
                                     />
