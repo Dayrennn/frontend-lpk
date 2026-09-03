@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowLeft, Save } from "lucide-react";
 import EditCPMI from "@/app/components/cpmi/editCPMI";
 import ModalSukses from "@/app/components/modal/suksesModal";
+import { formatDateForInput } from "@/hooks/helper/formatTanggal";
 export default function EditCPMIPage() {
     const { id } = useParams();
     const router = useRouter();
@@ -97,9 +98,9 @@ export default function EditCPMIPage() {
                                 setTelephoneKerabat={setTelephoneKerabat}
                                 job={job || cpmi.job || ""}
                                 setJob={setJob}
-                                tanggalTerima={tanggalTerima || cpmi.tanggalTerima || ""}
+                                tanggalTerima={tanggalTerima || formatDateForInput(cpmi.tanggalTerima) || ""}
                                 setTanggalTerima={setTanggalTerima}
-                                tanggalBerangkat={tanggalBerangkat || cpmi.tanggalBerangkat || ""}
+                                tanggalBerangkat={tanggalBerangkat || formatDateForInput(cpmi.tanggalBerangkat) || ""}
                                 setTanggalBerangkat={setTanggalBerangkat}
                                 perusahaanPenempatan={perusahaanPenempatan || cpmi.perusahaanPenempatan || ""}
                                 setPerusahaanPenempatan={setPerusahaanPenempatan}

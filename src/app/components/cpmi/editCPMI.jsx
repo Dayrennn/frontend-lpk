@@ -19,7 +19,7 @@ export default function EditCPMI({
     setJob,
     tanggalTerima,
     setTanggalTerima,
-    tanggalBerangkat, 
+    tanggalBerangkat,
     setTanggalBerangkat,
     perusahaanPenempatan,
     setPerusahaanPenempatan,
@@ -49,13 +49,33 @@ export default function EditCPMI({
                 <div>
                     <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Telephone 1</label>
 
-                    <input type="number" value={telephone} onChange={(e) => setTelephone(e.target.value)} className={inputClass} />
+                    <input
+                        type="number"
+                        value={telephone}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (value.length <= 12) {
+                                setTelephone(value);
+                            }
+                        }}
+                        className={inputClass}
+                    />
                 </div>
 
                 <div>
                     <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Telephone 2</label>
 
-                    <input type="number" value={telephone_sekunder} onChange={(e) => setTelephone_sekunder(e.target.value)} className={inputClass} />
+                    <input
+                        type="number"
+                        value={telephone_sekunder}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (value.length <= 12) {
+                                setTelephone_sekunder(value);
+                            }
+                        }}
+                        className={inputClass}
+                    />
                 </div>
 
                 <div>
@@ -66,7 +86,17 @@ export default function EditCPMI({
                 <div>
                     <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Telephone Orang Tua</label>
 
-                    <input type="number" value={telephoneOrtu} onChange={(e) => setTelephoneOrtu(e.target.value)} className={inputClass} />
+                    <input
+                        type="number"
+                        value={telephoneOrtu}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (value.length <= 12) {
+                                setTelephoneOrtu(value);
+                            }
+                        }}
+                        className={inputClass}
+                    />
                 </div>
                 <div>
                     <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Nama Kerabat</label>
@@ -76,7 +106,17 @@ export default function EditCPMI({
                 <div>
                     <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Telephone Kerabat</label>
 
-                    <input type="number" value={telephoneKerabat} onChange={(e) => setTelephoneKerabat(e.target.value)} className={inputClass} />
+                    <input
+                        type="number"
+                        value={telephoneKerabat}
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (value.length <= 12) {
+                                setTelephoneKerabat(value);
+                            }
+                        }}
+                        className={inputClass}
+                    />
                 </div>
                 <div>
                     <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Job</label>
