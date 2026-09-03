@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { GraduationCap, LayoutDashboard, Users, LogOut, ChevronDown, X, UsersRound, UserCheck, School, UserRoundX, Languages, BookOpen, UserMinus } from 'lucide-react';
-import Link from 'next/link';
-import LogoutModal from '../modal/logoutModal';
-import { useLogoutMutation, useGetMeQuery } from '@/hooks/api/userSliceAPI';
-import { usePathname } from 'next/navigation';
+import { useState } from "react";
+import { GraduationCap, LayoutDashboard, Users, LogOut, ChevronDown, X, UsersRound, UserCheck, School, UserRoundX, Languages, BookOpen, UserMinus, FileUser } from "lucide-react";
+import Link from "next/link";
+import LogoutModal from "../modal/logoutModal";
+import { useLogoutMutation, useGetMeQuery } from "@/hooks/api/userSliceAPI";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar({ isOpen = false, onClose = () => {} }) {
     const pathname = usePathname();
@@ -18,54 +18,53 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
     const { data: meData } = useGetMeQuery();
     const profile = meData?.data;
 
-    const isAdmin = profile?.role === 'Admin';
-    const isSuperadmin = profile?.role === 'Superadmin';
+    const isAdmin = profile?.role === "Admin";
+    const isSuperadmin = profile?.role === "Superadmin";
 
-    const displayName = profile?.username || 'Admin Panitia';
-    const displayEmail = profile?.email || 'admin@programkerja.id';
+    const displayName = profile?.username || "Admin Panitia";
+    const displayEmail = profile?.email || "admin@programkerja.id";
     const initials = displayName
-        .split(' ')
+        .split(" ")
         .map((w) => w[0])
         .slice(0, 2)
-        .join('')
+        .join("")
         .toUpperCase();
 
     const handleLogout = async () => {
         try {
             await logout().unwrap();
         } catch (error) {
-            console.error('logout gagal', error);
+            console.error("logout gagal", error);
         }
     };
 
-    const dashboardLink = isAdmin ? '/dashboard/admin' : isSuperadmin ? '/dashboard/Superadmin' : '/';
+    const dashboardLink = isAdmin ? "/dashboard/admin" : isSuperadmin ? "/dashboard/Superadmin" : "/";
 
     const isDashboard = pathname === dashboardLink;
-    const isKandidat = pathname?.startsWith('/data-kandidat');
-    const isCalonPMI = pathname?.startsWith('/data-calon-pmi');
-    const isKelas = pathname?.startsWith('/kelas');
-    const isKandidatMundur = pathname?.startsWith('/data-mundur');
+    const isKandidat = pathname?.startsWith("/data-kandidat");
+    const isPeserta = pathname?.startsWith("/data-peserta");
+    const isKelas = pathname?.startsWith("/kelas");
+    const isPesertaMundur = pathname?.startsWith("/data-mundur");
+    const isCalonPmi = pathname?.startsWith("/data-cpmi");
 
     return (
         <>
             {/* Overlay khusus mobile, klik untuk menutup drawer */}
-            {isOpen && (
-                <div onClick={onClose} className="fixed inset-0 z-30 bg-black/40 lg:hidden" aria-hidden="true" />
-            )}
+            {isOpen && <div onClick={onClose} className="fixed inset-0 z-30 bg-black/40 lg:hidden" aria-hidden="true" />}
 
             <aside
                 className={
                     isOpen
-                        ? 'fixed inset-y-0 left-0 z-40 w-64 flex flex-col text-white overflow-hidden transition-transform duration-200 lg:translate-x-0 translate-x-0'
-                        : 'fixed inset-y-0 left-0 z-40 w-64 flex flex-col text-white overflow-hidden transition-transform duration-200 lg:translate-x-0 -translate-x-full'
+                        ? "fixed inset-y-0 left-0 z-40 w-64 flex flex-col text-white overflow-hidden transition-transform duration-200 lg:translate-x-0 translate-x-0"
+                        : "fixed inset-y-0 left-0 z-40 w-64 flex flex-col text-white overflow-hidden transition-transform duration-200 lg:translate-x-0 -translate-x-full"
                 }
-                style={{ background: 'linear-gradient(180deg,#182742,#0F1A2E)' }}
+                style={{ background: "linear-gradient(180deg,#182742,#0F1A2E)" }}
             >
                 <div
                     className="absolute inset-0 opacity-[0.06] pointer-events-none"
                     style={{
-                        backgroundImage: 'radial-gradient(#FFFFFF 1px, transparent 1px)',
-                        backgroundSize: '18px 18px',
+                        backgroundImage: "radial-gradient(#FFFFFF 1px, transparent 1px)",
+                        backgroundSize: "18px 18px",
                     }}
                 />
 
@@ -75,9 +74,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                         <GraduationCap className="w-5 h-5 text-[#16223B]" />
                     </div>
                     <div className="min-w-0 flex-1">
-                        <p className="font-serif text-sm font-semibold text-white leading-tight truncate">
-                            Panel Admin
-                        </p>
+                        <p className="font-serif text-sm font-semibold text-white leading-tight truncate">Panel Admin</p>
                         <p className="text-[11px] text-white/50 leading-tight truncate">Pelatihan &amp; Penempatan</p>
                     </div>
                     <button onClick={onClose} className="lg:hidden text-white/60 hover:text-white shrink-0">
@@ -90,9 +87,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                     onClick={() => setProfileOpen((v) => !v)}
                     className="relative flex items-center gap-3 px-5 py-4 border-b border-white/10 hover:bg-white/5 transition-colors text-left"
                 >
-                    <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-sm font-semibold shrink-0">
-                        {initials}
-                    </div>
+                    <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-sm font-semibold shrink-0">{initials}</div>
                     <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-white truncate">{displayName}</p>
                         <p className="text-[11px] text-white/50 truncate">{displayEmail}</p>
@@ -107,8 +102,8 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                         href={dashboardLink}
                         className={
                             isDashboard
-                                ? 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold'
-                                : 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
+                                ? "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold"
+                                : "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white"
                         }
                     >
                         <LayoutDashboard className="w-4 h-4 shrink-0" />
@@ -120,25 +115,25 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                         href="/data-kandidat"
                         className={
                             isKandidat
-                                ? 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold'
-                                : 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
+                                ? "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold"
+                                : "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white"
                         }
                     >
                         <UsersRound className="w-4 h-4 shrink-0" />
-                        Data Kandidat
+                        Data Masuk
                     </Link>
 
                     {/* Data Calon PMI */}
                     <Link
-                        href="/data-calon-pmi"
+                        href="/data-peserta"
                         className={
-                            isCalonPMI
-                                ? 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold'
-                                : 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
+                            isPeserta
+                                ? "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold"
+                                : "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white"
                         }
                     >
                         <UserCheck className="w-4 h-4 shrink-0" />
-                        Data Calon PMI
+                        Data Peserta
                     </Link>
 
                     {/* Data Kelas */}
@@ -148,8 +143,8 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                             onClick={() => setKelasOpen(!kelasOpen)}
                             className={
                                 isKelas
-                                    ? 'w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold'
-                                    : 'w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
+                                    ? "w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold"
+                                    : "w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white"
                             }
                         >
                             <div className="flex items-center gap-3">
@@ -157,9 +152,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                                 Data Kelas
                             </div>
 
-                            <ChevronDown
-                                className={`w-4 h-4 transition-transform duration-200 ${kelasOpen ? 'rotate-180' : ''}`}
-                            />
+                            <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${kelasOpen ? "rotate-180" : ""}`} />
                         </button>
 
                         {/* Submenu */}
@@ -169,9 +162,9 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                                 <Link
                                     href="/data-kelas/belum-dapat"
                                     className={
-                                        pathname === '/data-kelas/belum-dapat'
-                                            ? 'flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
-                                            : 'flex items-center gap-2 px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
+                                        pathname === "/data-kelas/belum-dapat"
+                                            ? "flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold"
+                                            : "flex items-center gap-2 px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white"
                                     }
                                 >
                                     <UserRoundX className="w-3.5 h-3.5 shrink-0" />
@@ -182,9 +175,9 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                                 <Link
                                     href="/data-kelas/inggris"
                                     className={
-                                        pathname === '/data-kelas/inggris'
-                                            ? 'flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
-                                            : 'flex items-center gap-2 px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
+                                        pathname === "/data-kelas/inggris"
+                                            ? "flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold"
+                                            : "flex items-center gap-2 px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white"
                                     }
                                 >
                                     <Languages className="w-3.5 h-3.5 shrink-0" />
@@ -195,9 +188,9 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                                 <Link
                                     href="/data-kelas/jepang"
                                     className={
-                                        pathname === '/data-kelas/jepang'
-                                            ? 'flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold'
-                                            : 'flex items-center gap-2 px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white'
+                                        pathname === "/data-kelas/jepang"
+                                            ? "flex items-center gap-2 px-3 py-2 rounded-md text-sm bg-[#D9B25C]/20 text-[#D9B25C] font-semibold"
+                                            : "flex items-center gap-2 px-3 py-2 rounded-md text-sm text-white/60 hover:bg-white/5 hover:text-white"
                                     }
                                 >
                                     <BookOpen className="w-3.5 h-3.5 shrink-0" />
@@ -211,13 +204,26 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                     <Link
                         href="/data-mundur"
                         className={
-                            isKandidatMundur
-                                ? 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold'
-                                : 'w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white'
+                            isPesertaMundur
+                                ? "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold"
+                                : "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white"
                         }
                     >
                         <UserMinus className="w-4 h-4 shrink-0" />
-                        Data Kandidat Mundur
+                        Data Peserta Mundur
+                    </Link>
+
+                    {/* Kandidat Mundur */}
+                    <Link
+                        href="/data-cpmi"
+                        className={
+                            isCalonPmi
+                                ? "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors bg-[#D9B25C] text-[#16223B] font-semibold"
+                                : "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-colors text-white/70 hover:bg-white/5 hover:text-white"
+                        }
+                    >
+                        <FileUser className="w-4 h-4 shrink-0" />
+                        Data Calon PMI
                     </Link>
                 </nav>
 
@@ -232,13 +238,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
                     </button>
                 </div>
             </aside>
-            {showModalLogout && (
-                <LogoutModal
-                    onConfirm={handleLogout}
-                    onCancel={() => setShowModalLogout(false)}
-                    isLoading={isLoading}
-                />
-            )}
+            {showModalLogout && <LogoutModal onConfirm={handleLogout} onCancel={() => setShowModalLogout(false)} isLoading={isLoading} />}
         </>
     );
 }

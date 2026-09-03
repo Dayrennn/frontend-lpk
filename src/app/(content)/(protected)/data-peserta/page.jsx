@@ -1,6 +1,6 @@
 "use client";
 import StatusPill from "@/app/components/statusPill";
-import { useGetKandidatCalonQuery, useSimpanPersyaratanMutation } from "@/hooks/api/kandidatSliceAPI";
+import { useGetKandidatCalonQuery, useSimpanPersyaratanMutation, useSimpanInterviewMutation } from "@/hooks/api/kandidatSliceAPI";
 import { ChevronLeft, ChevronRight, Search, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import StatusDropdown from "@/app/components/dropdown/statusDropdown";
@@ -25,8 +25,14 @@ const biayaPelatihanStyle = {
     BULAN_4: "bg-amber-50 text-amber-700 border-amber-200",
     LUNAS: "bg-emerald-50 text-emerald-700 border-emerald-200",
 };
+const interviewStyle = {
+    BELUM: "bg-slate-50 text-slate-600 border-slate-200",
+    SIAP_INTERVIEW: "bg-blue-50 text-blue-700 border-blue-200",
+    MENUNGGU_HASIL: "bg-amber-50 text-amber-700 border-amber-200",
+    DITERIMA: "bg-emerald-50 text-emerald-700 border-emerald-200",
+};
 
-export default function DataCalonPekerja() {
+export default function DataPeserta() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [keyword, setKeyword] = useState("");
@@ -39,6 +45,7 @@ export default function DataCalonPekerja() {
     const totalPages = pagination.totalPages ?? 1;
 
     const [simpan] = useSimpanPersyaratanMutation();
+    const [simpanInterview] = useSimpanInterviewMutation();
 
     const handleKeywordChange = (e) => {
         setKeyword(e.target.value);
@@ -55,6 +62,14 @@ export default function DataCalonPekerja() {
             await simpan({ id, data: { [field]: value } }).unwrap();
         } catch (error) {
             console.error("Gagal menyimpan:", error);
+        }
+    };
+
+    const handleInterviewChange = async (id, value) => {
+        try {
+            await simpanInterview({ id, data: { interview: value } }).unwrap();
+        } catch (error) {
+            console.error("Gagal menyimpan interview:", error);
         }
     };
 
@@ -80,6 +95,10 @@ export default function DataCalonPekerja() {
                     <p className="text-xl font-semibold text-slate-800">{pagination.totalMandiri ?? 0}</p>
                     <p className="text-[13px] text-slate-400 mt-0.5">Total Dana Mandiri</p>
                 </div>
+                <div className="bg-white border border-slate-200 rounded-xl p-5">
+                    <p className="text-xl font-semibold text-slate-800">{pagination.totalTidakPelatihan ?? 0}</p>
+                    <p className="text-[13px] text-slate-400 mt-0.5">Total Tanpa Pelatihan</p>
+                </div>
             </div>
 
             <div className="mb-4">
@@ -104,11 +123,13 @@ export default function DataCalonPekerja() {
                                 <th className="px-5 py-3 font-semibold">Umur</th>
                                 <th className="px-5 py-3 font-semibold">No. Handphone</th>
                                 <th className="px-5 py-3 font-semibold">Pendidikan</th>
-                                <th className="px-5 py-3 font-semibold">Asal</th>
+                                <th className="px-5 py-3 font-semibold">Provinsi</th>
+                                <th className="px-5 py-3 font-semibold">Kabupaten / Kota</th>
                                 <th className="px-5 py-3 font-semibold">Tujuan</th>
                                 <th className="px-5 py-3 font-semibold">BI Checking</th>
                                 <th className="px-5 py-3 font-semibold">Surat Pernyataan</th>
                                 <th className="px-5 py-3 font-semibold">Biaya Pelatihan</th>
+                                <th className="px-5 py-3 font-semibold">Interview</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
@@ -126,7 +147,8 @@ export default function DataCalonPekerja() {
                                     <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">{k.umur}</td>
                                     <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">{k.telephone}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.pendidikan}</td>
-                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.asal}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.provinsi.namaProvinsi}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.kabupaten.namaKabupaten}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.tujuan}</td>
 
                                     <td className="px-5 py-3.5">
@@ -157,6 +179,20 @@ export default function DataCalonPekerja() {
                                                 { value: "BULAN_3", label: "Bulan 3" },
                                                 { value: "BULAN_4", label: "Bulan 4" },
                                                 { value: "LUNAS", label: "Lunas" },
+                                                { value: "TIDAK_PELATIHAN", label: "Tanpa Pelatihan" },
+                                            ]}
+                                        />
+                                    </td>
+                                    <td className="px-5 py-3.5">
+                                        <StatusDropdown
+                                            value={k.interview ?? "BELUM"}
+                                            onChange={(e) => handleInterviewChange(k.id, e.target.value)}
+                                            colorMap={interviewStyle}
+                                            options={[
+                                                { value: "BELUM", label: "Belum" },
+                                                { value: "SIAP_INTERVIEW", label: "Siap Interview" },
+                                                { value: "MENUNGGU_HASIL", label: "Menunggu Hasil" },
+                                                { value: "DITERIMA", label: "Diterima" },
                                             ]}
                                         />
                                     </td>

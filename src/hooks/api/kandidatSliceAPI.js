@@ -67,7 +67,7 @@ export const kandidatAPI = createApi({
             invalidatesTags: ['kandidatAPI'],
         }),
         getKandidatCalon: builder.query({
-            query: () => '/kandidat/calon-pekerja',
+            query: () => '/kandidat/calon-peserta',
             providesTags: ['kandidatAPI'],
         }),
         seeKandidatForClass: builder.query({
@@ -106,6 +106,30 @@ export const kandidatAPI = createApi({
             }),
             invalidatesTags: ['kandidatAPi'],
         }),
+        simpanInterview: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/kandidat/input-interview/${id}`,
+                method: 'PUT',
+                body: data,
+            }),
+            invalidatesTags: ['kandidatAPI'],
+        }),
+        seeKandidatCPMi: builder.query({
+            query: ({ page = 1, limit = 10, search = '' }) => `/kandidat/data-cpmi?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
+            providesTags: ['kandidatAPI'],
+        }),
+        inputDataCPMI: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/kandidat/input-data-cpmi/${id}`,
+                method: 'PUT',
+                body: data,
+            }),
+            invalidatesTags: ['kandidatAPI'],
+        }),
+        seeOneCPMI: builder.query({
+            query: (id) => `/kandidat/data-cpmi/${id}`,
+            providesTags: ['kandidatAPI']
+        })
     }),
 });
 
@@ -124,4 +148,8 @@ export const {
     useSeeAllKandidatJepangQuery,
     useSeeAllKandidatMundurQuery,
     useSeeCheckKodeKandidatMutation,
+    useSimpanInterviewMutation,
+    useSeeKandidatCPMiQuery,
+    useInputDataCPMIMutation,
+    useSeeOneCPMIQuery
 } = kandidatAPI;
