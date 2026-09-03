@@ -8,7 +8,7 @@ import EditCPMI from "@/app/components/cpmi/editCPMI";
 import ModalSukses from "@/app/components/modal/suksesModal";
 export default function EditCPMIPage() {
     const { id } = useParams();
-    const router = useRouter()
+    const router = useRouter();
 
     const { data, isLoading, isError } = useSeeOneCPMIQuery(id);
     const cpmi = data?.data ?? {};
@@ -26,6 +26,10 @@ export default function EditCPMIPage() {
     const [telephoneKerabat, setTelephoneKerabat] = useState("");
     const [job, setJob] = useState("");
     const [tanggalTerima, setTanggalTerima] = useState("");
+    const [tanggalBerangkat, setTanggalBerangkat] = useState("");
+    const [perusahaanPenempatan, setPerusahaanPenempatan] = useState("");
+    const [kontrak, setKontrak] = useState("");
+    const [tempatPelatihan, setTempatPelatihan] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,6 +45,10 @@ export default function EditCPMIPage() {
         if (telephoneKerabat) payload.telephoneKerabat = telephoneKerabat;
         if (job) payload.job = job;
         if (tanggalTerima) payload.tanggalTerima = tanggalTerima;
+        if (tanggalBerangkat) payload.tanggalBerangkat = tanggalBerangkat;
+        if (perusahaanPenempatan) payload.perusahaanPenempatan = perusahaanPenempatan;
+        if (kontrak) payload.kontrak = kontrak;
+        if (tempatPelatihan) payload.tempatPelatihan = tempatPelatihan;
 
         try {
             await input({ id, data: payload }).unwrap();
@@ -69,45 +77,55 @@ export default function EditCPMIPage() {
                 </div>
                 <main className="max-w-6xl mx-auto px-5 sm:px-8 py-7">
                     <form onSubmit={handleSubmit}>
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <div className="lg:col-span-2 space-y-6">
-                                <EditCPMI
-                                    nama={nama || cpmi.nama || ""}
-                                    setNama={setNama}
-                                    alamat={alamat || cpmi.alamat || ""}
-                                    setAlamat={setAlamat}
-                                    telephone={telephone || cpmi.telephone || ""}
-                                    setTelephone={setTelephone}
-                                    telephone_sekunder={telephone_sekunder || cpmi.telephone_sekunder || ""}
-                                    setTelephone_sekunder={setTelephone_sekunder}
-                                    namaOrtu={namaOrtu || cpmi.namaOrtu || ""}
-                                    setNamaOrtu={setNamaortu}
-                                    namaKerabat={namaKerabat || cpmi.namaKerabat || ""}
-                                    setTelephoneKerabat={setTelephoneKerabat}
-                                    job={job || cpmi.job || ""}
-                                    setJob={setJob}
-                                    tanggalTerima={tanggalTerima || cpmi.tanggalTerima || ""}
-                                    setTanggalTerima={setTanggalTerima}
-                                />
+                        <div className="bg-white border border-slate-200 rounded-lg p-5">
+                            <EditCPMI
+                                nama={nama || cpmi.nama || ""}
+                                setNama={setNama}
+                                alamat={alamat || cpmi.alamatSesuaiKTP || ""}
+                                setAlamat={setAlamat}
+                                telephone={telephone || cpmi.telephone || ""}
+                                setTelephone={setTelephone}
+                                telephone_sekunder={telephone_sekunder || cpmi.telephone_sekunder || ""}
+                                setTelephone_sekunder={setTelephone_sekunder}
+                                namaOrtu={namaOrtu || cpmi.namaOrangTua || ""}
+                                setNamaOrtu={setNamaortu}
+                                telephoneOrtu={telephoneOrtu || cpmi.telephoneOrtu || ""}
+                                setTelephoneOrtu={setTelephoneOrtu}
+                                namaKerabat={namaKerabat || cpmi.namaKerabat || ""}
+                                setNamaKerabat={setNamaKerabat}
+                                telephoneKerabat={telephoneKerabat || cpmi.telephoneKerabat || ""}
+                                setTelephoneKerabat={setTelephoneKerabat}
+                                job={job || cpmi.job || ""}
+                                setJob={setJob}
+                                tanggalTerima={tanggalTerima || cpmi.tanggalTerima || ""}
+                                setTanggalTerima={setTanggalTerima}
+                                tanggalBerangkat={tanggalBerangkat || cpmi.tanggalBerangkat || ""}
+                                setTanggalBerangkat={setTanggalBerangkat}
+                                perusahaanPenempatan={perusahaanPenempatan || cpmi.perusahaanPenempatan || ""}
+                                setPerusahaanPenempatan={setPerusahaanPenempatan}
+                                kontrak={kontrak || cpmi.kontrak || ""}
+                                setKontrak={setKontrak}
+                                tempatPelatihan={tempatPelatihan || cpmi.tempatPelatihan || ""}
+                                setTempatPelatihan={setTempatPelatihan}
+                            />
+                            <div className="p-2">
+                                <h2 className="text-sm font-semibold text-slate-800">Simpan Perubahan</h2>
+
+                                <p className="text-xs text-slate-400 mt-1 mb-4">Pastikan seluruh data sudah benar sebelum menyimpan.</p>
+
+                                <button
+                                    type="submit"
+                                    className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-[#16223B] text-white text-sm font-semibold hover:bg-[#0F1A2E] transition-colors"
+                                >
+                                    <Save className="w-4 h-4" />
+                                    Simpan Perubahan
+                                </button>
                             </div>
-                        </div>
-                        <div className="bg-white border border-slate-200 rounded-lg p-5 sticky top-5">
-                            <h2 className="text-sm font-semibold text-slate-800">Simpan Perubahan</h2>
-
-                            <p className="text-xs text-slate-400 mt-1 mb-4">Pastikan seluruh data sudah benar sebelum menyimpan.</p>
-
-                            <button
-                                type="submit"
-                                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-[#16223B] text-white text-sm font-semibold hover:bg-[#0F1A2E] transition-colors"
-                            >
-                                <Save className="w-4 h-4" />
-                                Simpan Perubahan
-                            </button>
                         </div>
                     </form>
                 </main>
             </div>
-            ({showSuccess && <ModalSukses onClose={() => router.push('/data-cpmi')} title="Edit CPMI" message="Berhasil Edit CPMI" />})
+            ({showSuccess && <ModalSukses onClose={() => router.push("/data-cpmi")} title="Edit CPMI" message="Berhasil Edit CPMI" />})
         </>
     );
 }

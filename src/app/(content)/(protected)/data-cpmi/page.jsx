@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, Eye, Search } from "lucide-react";
 import { useState } from "react";
 import DataKerabatModal from "@/app/components/modal/dataKerabatModal";
 import Link from "next/link";
+import { formatTanggalSimpel } from "@/hooks/helper/formatTanggal";
 
 export default function DataCpmi() {
     const [page, setPage] = useState(1);
@@ -113,8 +114,8 @@ export default function DataCpmi() {
                                     </td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.job}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.dana}</td>
-                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.tanggalTerima}</td>
-                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.tanggalBerangkat}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{formatTanggalSimpel(k.tanggalTerima)}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{formatTanggalSimpel(k.tanggalBerangkat)}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.perusahaanPenempatan}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.kontrak}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.tempatPelatihan}</td>

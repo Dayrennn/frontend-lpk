@@ -19,6 +19,14 @@ export default function EditCPMI({
     setJob,
     tanggalTerima,
     setTanggalTerima,
+    tanggalBerangkat, 
+    setTanggalBerangkat,
+    perusahaanPenempatan,
+    setPerusahaanPenempatan,
+    kontrak,
+    setKontrak,
+    tempatPelatihan,
+    setTempatPelatihan,
 }) {
     const inputClass =
         "w-full px-3.5 py-2.5 border border-slate-300 rounded-md text-sm text-slate-800 bg-white " +
@@ -79,6 +87,26 @@ export default function EditCPMI({
                     <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Tanggal Diterima</label>
 
                     <input type="date" value={tanggalTerima} onChange={(e) => setTanggalTerima(e.target.value)} className={inputClass} />
+                </div>
+                <div>
+                    <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Tanggal Berangkat</label>
+
+                    <input type="date" value={tanggalBerangkat} onChange={(e) => setTanggalBerangkat(e.target.value)} className={inputClass} />
+                </div>
+                <div>
+                    <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Perusahaan Penempatan</label>
+
+                    <input type="text" value={perusahaanPenempatan} onChange={(e) => setPerusahaanPenempatan(e.target.value)} className={inputClass} />
+                </div>
+                <div>
+                    <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Kontrak</label>
+
+                    <input type="text" value={kontrak} onChange={(e) => setKontrak(e.target.value)} className={inputClass} />
+                </div>
+                <div>
+                    <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Tempat Pelatihan</label>
+
+                    <input type="text" value={tempatPelatihan} onChange={(e) => setTempatPelatihan(e.target.value)} className={inputClass} />
                 </div>
             </div>
         </>

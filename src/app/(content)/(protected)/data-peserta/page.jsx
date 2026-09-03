@@ -1,7 +1,7 @@
 "use client";
 import StatusPill from "@/app/components/statusPill";
 import { useGetKandidatCalonQuery, useSimpanPersyaratanMutation, useSimpanInterviewMutation } from "@/hooks/api/kandidatSliceAPI";
-import { ChevronLeft, ChevronRight, Search, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useState } from "react";
 import StatusDropdown from "@/app/components/dropdown/statusDropdown";
 
@@ -98,6 +98,10 @@ export default function DataPeserta() {
                 <div className="bg-white border border-slate-200 rounded-xl p-5">
                     <p className="text-xl font-semibold text-slate-800">{pagination.totalTidakPelatihan ?? 0}</p>
                     <p className="text-[13px] text-slate-400 mt-0.5">Total Tanpa Pelatihan</p>
+                </div>
+                <div className="bg-white border border-slate-200 rounded-xl p-5">
+                    <p className="text-xl font-semibold text-slate-800">{pagination.totalTerima ?? 0}</p>
+                    <p className="text-[13px] text-slate-400 mt-0.5">Total Diterima INterview</p>
                 </div>
             </div>
 
