@@ -123,7 +123,7 @@ export default function DataKandidatMundur() {
                                     </td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.pendidikan}</td>
                                     <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">
-                                        {k.asal}
+                                        {k.provinsi.namaProvinsi} - {k.kabupaten.namaKabupaten}
                                     </td>
 
                                     <td className="px-5 py-3.5">

@@ -377,7 +377,7 @@ export default function FormRegistration({ step, setStep }) {
                                     <option value="KRISTEN">Kristen</option>
                                     <option value="KATOLIK">Katolik</option>
                                     <option value="HINDU">Hindu</option>
-                                    <option value="BUDDHA">Buddha</option>
+                                    <option value="BUDHA">Buddha</option>
                                     <option value="KONGHUCU">Konghucu</option>
                                 </select>
                                 <FieldError message={errors.agama} />

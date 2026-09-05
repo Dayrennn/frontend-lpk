@@ -1,7 +1,7 @@
 "use client";
 import StatusDropdown from "@/app/components/dropdown/statusDropdown";
 import StatusPill from "@/app/components/statusPill";
-import { useSeeAllKandidatInggrisQuery, useCreateKandidatForClassMutation } from "@/hooks/api/kandidatSliceAPI";
+import { useSeeAllKandidatInggrisQuery, useCreateKandidatForClassMutation, useSimpanInterviewMutation } from "@/hooks/api/kandidatSliceAPI";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useState } from "react";
 import { formatTanggalSimpel } from "@/hooks/helper/formatTanggal";
@@ -27,6 +27,13 @@ const biayaPelatihanStyle = {
     BULAN_3: "bg-amber-50 text-amber-700 border-amber-200",
     BULAN_4: "bg-amber-50 text-amber-700 border-amber-200",
     LUNAS: "bg-emerald-50 text-emerald-700 border-emerald-200",
+};
+
+const interviewStyle = {
+    BELUM: "bg-slate-50 text-slate-600 border-slate-200",
+    SIAP_INTERVIEW: "bg-blue-50 text-blue-700 border-blue-200",
+    MENUNGGU_HASIL: "bg-amber-50 text-amber-700 border-amber-200",
+    DITERIMA: "bg-emerald-50 text-emerald-700 border-emerald-200",
 };
 
 export default function DataKelasInggris() {
@@ -60,6 +67,15 @@ export default function DataKelasInggris() {
             await simpan({ kandidatId, tipeKelas });
         } catch (error) {
             console.error("Gagal menyimpan:", error);
+        }
+    };
+
+    const [simpanInterview] = useSimpanInterviewMutation();
+    const handleInterviewChange = async (id, value) => {
+        try {
+            await simpanInterview({ id, data: { interview: value } }).unwrap();
+        } catch (err) {
+            console.error("Gagal Menyimpan Interview", err);
         }
     };
 
@@ -105,6 +121,7 @@ export default function DataKelasInggris() {
                                 <th className="px-5 py-3 font-semibold">Biaya Pelatihan</th>
                                 <th className="px-5 py-3 font-semibold">Surat Pernyataan</th>
                                 <th className="px-5 py-3 font-semibold text-center">Kelas</th>
+                                <th className="px-5 py-3 font-semibold text-center">Interview</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
@@ -159,6 +176,19 @@ export default function DataKelasInggris() {
                                                 { value: "belum", label: "Belum" },
                                                 { value: "inggris", label: "Kelas Inggris" },
                                                 { value: "jepang", label: "Kelas Jepang" },
+                                            ]}
+                                        />
+                                    </td>
+                                    <td className="px-5 py-3.5">
+                                        <StatusDropdown
+                                            value={k.interview ?? "BELUM"}
+                                            onChange={(e) => handleInterviewChange(k.id, e.target.value)}
+                                            colorMap={interviewStyle}
+                                            options={[
+                                                { value: "BELUM", label: "Belum" },
+                                                { value: "SIAP_INTERVIEW", label: "Siap Interview" },
+                                                { value: "MENUNGGU_HASIL", label: "Menunggu Hasil" },
+                                                { value: "DITERIMA", label: "Diterima" },
                                             ]}
                                         />
                                     </td>

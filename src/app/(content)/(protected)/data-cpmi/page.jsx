@@ -85,6 +85,7 @@ export default function DataCpmi() {
                                 <th className="px-5 py-3 font-semibold">Perusahaan Penempatan</th>
                                 <th className="px-5 py-3 font-semibold">Durasi Kontrak</th>
                                 <th className="px-5 py-3 font-semibold">LPK / Tempat Pelatihan</th>
+                                <th className="px-5 py-3 font-semibold">Interview</th>
                                 <th className="px-5 py-3 font-semibold">Aksi</th>
                             </tr>
                         </thead>
@@ -118,7 +119,9 @@ export default function DataCpmi() {
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{formatTanggalSimpel(k.tanggalBerangkat)}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.perusahaanPenempatan}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.kontrak}</td>
+
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.tempatPelatihan}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.interview}</td>
                                     <td className="px-5 py-3.5 text-right whitespace-nowrap">
                                         <Link
                                             href={`/data-cpmi/${k.id}`}
