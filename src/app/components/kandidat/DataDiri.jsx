@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSeeAllAsalQuery } from "@/hooks/api/asalSliceAPI";
+import { calculateAge } from "@/hooks/helper/calculateAge";
 
 export default function DataDiri({
     nama,
@@ -79,13 +80,23 @@ export default function DataDiri({
                 <div>
                     <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Umur</label>
 
-                    <input type="number" value={umur} onChange={(e) => setUmur(e.target.value)} className={inputClass} />
+                    <input type="number" value={umur} readOnly className={`${inputClass} bg-slate-100 cursor-not-allowed`} />
                 </div>
 
                 <div>
                     <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Tanggal Lahir</label>
 
-                    <input type="date" value={tgllahir} onChange={(e) => setTgllahir(e.target.value)} className={inputClass} />
+                    <input
+                        type="date"
+                        value={tgllahir}
+                        onChange={(e) => {
+                            const value = e.target.value;
+
+                            setTgllahir(value);
+                            setUmur(calculateAge(value));
+                        }}
+                        className={inputClass}
+                    />
                 </div>
 
                 <div>

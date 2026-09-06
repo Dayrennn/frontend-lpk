@@ -1,13 +1,15 @@
-// app/components/loader/fullPageLoader.jsx
-'use client';
+"use client";
 
-import { Loader2 } from 'lucide-react';
-
-export default function FullPageLoader({ label = 'Memuat...' }) {
+export default function FullPageLoader() {
     return (
-        <div className="fixed inset-0 flex flex-col items-center justify-center gap-3 bg-white z-50">
-            <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
-            <p className="text-sm text-gray-400">{label}</p>
+        <div className="fixed inset-0 z-[9999] pointer-events-none">
+            {/* Blur halaman */}
+            <div className="absolute inset-0 backdrop-blur-sm bg-white/10" />
+
+            {/* Loading bar merah */}
+            <div className="absolute top-0 left-0 w-full h-1 overflow-hidden">
+                <div className="h-full w-1/3 bg-red-500 animate-loader" />
+            </div>
         </div>
     );
 }

@@ -1,5 +1,5 @@
-// app/(protected)/layout.jsx  -- bungkus semua halaman yang butuh login
 'use client';
+
 import FullPageLoader from '@/app/components/loader/fullPageLoader';
 import { useGetMeQuery } from '@/hooks/api/userSliceAPI';
 import { useRouter } from 'next/navigation';
@@ -15,8 +15,13 @@ export default function ProtectedLayout({ children }) {
         }
     }, [isLoading, isError, router]);
 
-    if (isLoading) return <FullPageLoader/>
-    if (isError) return null; // lagi proses redirect
+    if (isError) return null;
 
-    return children;
+    return (
+        <>
+            {children}
+
+            {isLoading && <FullPageLoader />}
+        </>
+    );
 }

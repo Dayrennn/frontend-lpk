@@ -151,8 +151,8 @@ export default function DataPeserta() {
                                     <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">{k.umur}</td>
                                     <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">{k.telephone}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.pendidikan}</td>
-                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.provinsi.namaProvinsi}</td>
-                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.kabupaten.namaKabupaten}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.provinsi?.namaProvinsi ?? "-"}</td>
+                                    <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.kabupaten?.namaKabupaten ?? "-"}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.tujuan}</td>
 
                                     <td className="px-5 py-3.5">

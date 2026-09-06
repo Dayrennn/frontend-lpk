@@ -16,6 +16,14 @@ export const kandidatAPI = createApi({
             }),
             invalidatesTags: ['kandidatAPI'],
         }),
+        createKandidatAdmin: builder.mutation({
+            query: ({ data }) => ({
+                url: "/kandidat/add-kandidat-admin",
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: ['kandidatAPI']
+        }),
         modifyKandidat: builder.mutation({
             query: ({ id, data }) => ({
                 url: `/kandidat/update-kandidat/${id}`,
@@ -34,6 +42,11 @@ export const kandidatAPI = createApi({
         seeAllKandidat: builder.query({
             query: ({ page = 1, limit = 10, search = '' } = {}) =>
                 `/kandidat?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
+            providesTags: ['kandidatAPI'],
+        }),
+        seeAllKandidatAwal: builder.query({
+            query: ({ page = 1, limit = 10, search = '' } = {}) =>
+                `/kandidat/awal?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
             providesTags: ['kandidatAPI'],
         }),
         seeOneKandidat: builder.query({
@@ -135,6 +148,7 @@ export const kandidatAPI = createApi({
 
 export const {
     useCreateKandidatMutation,
+    useCreateKandidatAdminMutation,
     useModifyKandidatMutation,
     useDeleteKandidatMutation,
     useSeeAllKandidatQuery,
@@ -151,5 +165,6 @@ export const {
     useSimpanInterviewMutation,
     useSeeKandidatCPMiQuery,
     useInputDataCPMIMutation,
-    useSeeOneCPMIQuery
+    useSeeOneCPMIQuery,
+    useSeeAllKandidatAwalQuery
 } = kandidatAPI;
