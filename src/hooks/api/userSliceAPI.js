@@ -1,50 +1,66 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQueryWithReauth } from '../lib/baseQuery';
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithReauth } from "../lib/baseQuery";
 
 export const userAPI = createApi({
-    reducerPath: 'userAPI',
+    reducerPath: "userAPI",
     refetchOnFocus: true,
     refetchOnReconnect: true,
     baseQuery: baseQueryWithReauth,
-    tagTypes: ['userAPI'],
+    tagTypes: ["userAPI"],
     endpoints: (builder) => ({
         register: builder.mutation({
             query: ({ data }) => ({
-                url: '/auth/register',
-                method: 'POST',
+                url: "/auth/register",
+                method: "POST",
                 body: data,
             }),
-            invalidatesTags: ['userAPI'],
+            invalidatesTags: ["userAPI"],
         }),
         login: builder.mutation({
             query: (credentials) => ({
-                url: '/auth/login',
-                method: 'POST',
+                url: "/auth/login",
+                method: "POST",
                 body: credentials,
             }),
-            invalidatesTags: ['userAPI'],
+            invalidatesTags: ["userAPI"],
         }),
         verifyOtp: builder.mutation({
             query: (data) => ({
-                url: '/auth/verify-otp',
-                method: 'POST',
+                url: "/auth/verify-otp",
+                method: "POST",
                 body: data,
             }),
-            invalidatesTags: ['userAPI'],
+            invalidatesTags: ["userAPI"],
         }),
         logout: builder.mutation({
             query: (credentials) => ({
-                url: '/auth/logout',
-                method: 'POST',
+                url: "/auth/logout",
+                method: "POST",
                 body: credentials,
             }),
-            invalidatesTags: ['userAPI'],
+            invalidatesTags: ["userAPI"],
         }),
         getMe: builder.query({
-            query: () => '/auth/me',
-            providesTags: ['userAPI'],
+            query: () => "/auth/me",
+            providesTags: ["userAPI"],
+        }),
+        modify: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/auth/${id}`,
+                method: "PUT",
+                body: data,
+            }),
+            invalidatesTags: ["userAPI"],
+        }),
+        seeAllUser: builder.query({
+            query: () => "/auth",
+            providesTags: ["userAPI"],
+        }),
+        seeOneUser: builder.query({
+            query: (id) => `/auth/one-user/${id}`,
+            providesTags: ["userAPI"],
         }),
     }),
 });
 
-export const { useRegisterMutation, useVerifyOtpMutation, useLoginMutation, useLogoutMutation, useGetMeQuery } = userAPI;
+export const { useRegisterMutation, useVerifyOtpMutation, useLoginMutation, useLogoutMutation, useGetMeQuery, useModifyMutation, useSeeAllUserQuery, useSeeOneUserQuery } = userAPI;

@@ -44,8 +44,8 @@ export default function FormLogin() {
                     case 'Admin':
                         router.push('/dashboard/admin');
                         break;
-                    case 'Superadmin':
-                        router.push('/dashboard/superadmin');
+                    case 'SuperAdmin':
+                        router.push('/dashboard/admin');
                         break;
                     default:
                         router.push('/login');

@@ -129,14 +129,12 @@ export default function TambahKandidatModal({ onClose, onSubmit }) {
                                 <div className="min-w-0 flex-1">
                                     {cv ? (
                                         <>
-                                            <p className="truncate text-sm font-medium text-slate-700">{cv}</p>
-
+                                            <p className="truncate text-sm font-medium text-slate-700">{cv.name}</p>
                                             <p className="text-xs text-slate-400">File PDF berhasil dipilih</p>
                                         </>
                                     ) : (
                                         <>
                                             <p className="text-sm font-medium text-slate-600">Pilih file PDF</p>
-
                                             <p className="text-xs text-slate-400">Format PDF saja</p>
                                         </>
                                     )}

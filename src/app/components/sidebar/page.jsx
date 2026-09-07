@@ -36,7 +36,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {}, isCollapse
     const profile = meData?.data;
 
     const isAdmin = profile?.role === "Admin";
-    const isSuperadmin = profile?.role === "Superadmin";
+    const isSuperadmin = profile?.role === "SuperAdmin";
 
     const displayName = profile?.username || "Admin Panitia";
     const displayEmail = profile?.email || "admin@programkerja.id";
@@ -55,7 +55,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {}, isCollapse
         }
     };
 
-    const dashboardLink = isAdmin ? "/dashboard/admin" : isSuperadmin ? "/dashboard/Superadmin" : "/";
+    const dashboardLink = isAdmin ? "/dashboard/admin" : isSuperadmin ? "/dashboard/admin" : "/";
 
     const isDashboard = pathname === dashboardLink;
     const isKandidat = pathname?.startsWith("/data-kandidat");
@@ -64,6 +64,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {}, isCollapse
     const isPesertaMundur = pathname?.startsWith("/data-mundur");
     const isCalonPmi = pathname?.startsWith("/data-cpmi");
     const isDataAwal = pathname?.startsWith("/data-awal");
+    const isDataUser = pathname?.startsWith("/data-user");
 
     // Helper class untuk item navigasi
     const getNavItemClass = (isActive) =>
@@ -228,6 +229,12 @@ export default function Sidebar({ isOpen = false, onClose = () => {}, isCollapse
                         <FileUser className="w-4 h-4 shrink-0" />
                         {!isCollapsed && <span>Data Calon PMI</span>}
                     </Link>
+                    {isSuperadmin && (
+                        <Link href="/data-user" className={getNavItemClass(isDataUser)} title={isCollapsed ? "Data User" : ""}>
+                            <FileUser className="w-4 h-4 shrink-0" />
+                            {!isCollapsed && <span>Data User</span>}
+                        </Link>
+                    )}
                 </nav>
 
                 {/* Footer / Logout */}

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import FullPageLoader from '@/app/components/loader/fullPageLoader';
-import { useGetMeQuery } from '@/hooks/api/userSliceAPI';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import FullPageLoader from "@/app/components/loader/fullPageLoader";
+import { useGetMeQuery } from "@/hooks/api/userSliceAPI";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ProtectedLayout({ children }) {
     const router = useRouter();
@@ -11,7 +11,7 @@ export default function ProtectedLayout({ children }) {
 
     useEffect(() => {
         if (!isLoading && isError) {
-            router.replace('/login');
+            router.replace("/login");
         }
     }, [isLoading, isError, router]);
 
@@ -19,9 +19,8 @@ export default function ProtectedLayout({ children }) {
 
     return (
         <>
-            {children}
-
             {isLoading && <FullPageLoader />}
+            {children}
         </>
     );
 }
