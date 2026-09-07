@@ -19,7 +19,7 @@ export default function LoginPage() {
                     {/* Header */}
                     <div className="flex flex-col items-center text-center mb-8">
                         <Image src="/images/Logo.png" width={100} height={100} className="text-[#16223B]" />
-                        <h1 className="font-serif text-2xl font-semibold text-slate-800 leading-tight mb-1.5">Masuk ke Akun</h1>
+                        <h1 className="font-swiss text-2xl font-semibold text-slate-800 leading-tight mb-1.5">Masuk ke Akun</h1>
                         <p className="text-[13px] text-slate-400">Pantau status pendaftaran dan berkas Anda di sini.</p>
                     </div>
 

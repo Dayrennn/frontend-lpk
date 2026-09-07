@@ -93,7 +93,7 @@ export default function DataBelumDapatKelas() {
     return (
         <>
             <div className="mb-7">
-                <h1 className="font-serif text-2xl font-semibold text-slate-800">Kandidat Belum Dapat Kelas</h1>
+                <h1 className="font-swiss text-2xl font-semibold text-slate-800">Kandidat Belum Dapat Kelas</h1>
                 <p className="text-sm text-slate-400 mt-0.5">Daftar kandidat yang belum dapat kelas</p>
             </div>
 

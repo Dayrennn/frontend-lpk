@@ -96,7 +96,7 @@ export default function VerifikasiStatusPage() {
                     <p className="text-[11px] font-semibold tracking-[0.14em] text-[#B8862E] uppercase mb-2">
                         Cek Status Pendaftaran
                     </p>
-                    <h1 className="font-serif text-2xl sm:text-3xl font-semibold text-slate-800">
+                    <h1 className="font-swiss text-2xl sm:text-3xl font-semibold text-slate-800">
                         Lacak Status Kandidat
                     </h1>
                     <p className="text-sm text-slate-500 mt-2">

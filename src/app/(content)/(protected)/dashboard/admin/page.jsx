@@ -29,7 +29,7 @@ export default function DashboardAdminPage() {
     return (
         <>
             <div className="mb-7">
-                <h1 className="font-serif text-2xl font-semibold text-slate-800">Dashboard</h1>
+                <h1 className="font-swiss text-2xl font-semibold text-slate-800">Dashboard</h1>
                 <p className="text-sm text-slate-400 mt-0.5">
                     Ringkasan pendaftaran program pelatihan &amp; penempatan kerja.
                 </p>
@@ -81,7 +81,7 @@ export default function DashboardAdminPage() {
             {/* Kandidat terbaru */}
             <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
                 <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-                    <h2 className="font-serif text-base font-semibold text-slate-800">Kandidat Mendaftar Terbaru</h2>
+                    <h2 className="font-swiss text-base font-semibold text-slate-800">Kandidat Mendaftar Terbaru</h2>
                     <Link
                         href="/data-kandidat"
                         className="text-xs font-semibold text-[#16223B] hover:underline underline-offset-4"

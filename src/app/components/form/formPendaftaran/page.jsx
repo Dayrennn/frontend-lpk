@@ -286,7 +286,7 @@ export default function FormRegistration({ step, setStep }) {
                 {step === 1 && (
                     <div className="space-y-5">
                         <div>
-                            <h2 className="font-serif text-lg font-semibold text-slate-800">Data Diri</h2>
+                            <h2 className="font-swiss text-lg font-semibold text-slate-800">Data Diri</h2>
                             <p className="text-[13px] text-slate-400">Isikan data sesuai dokumen identitas.</p>
                         </div>
 
@@ -558,7 +558,7 @@ export default function FormRegistration({ step, setStep }) {
                 {step === 2 && (
                     <div className="space-y-5">
                         <div>
-                            <h2 className="font-serif text-lg font-semibold text-slate-800">Akademik & Tujuan</h2>
+                            <h2 className="font-swiss text-lg font-semibold text-slate-800">Akademik & Tujuan</h2>
                             <p className="text-[13px] text-slate-400">Informasi latar belakang pendidikan dan program yang dituju.</p>
                         </div>
 
@@ -649,7 +649,7 @@ export default function FormRegistration({ step, setStep }) {
                 {step === 3 && (
                     <div className="space-y-5">
                         <div>
-                            <h2 className="font-serif text-lg font-semibold text-slate-800">Berkas Dokumen</h2>
+                            <h2 className="font-swiss text-lg font-semibold text-slate-800">Berkas Dokumen</h2>
                             <p className="text-[13px] text-slate-400">Unggah berkas persyaratan berikut. Berkas bertanda * wajib dilampirkan.</p>
                         </div>
 
@@ -786,7 +786,7 @@ export default function FormRegistration({ step, setStep }) {
                 {step === 4 && (
                     <div className="space-y-6">
                         <div>
-                            <h2 className="font-serif text-lg font-semibold text-slate-800">Tinjau & Kirim</h2>
+                            <h2 className="font-swiss text-lg font-semibold text-slate-800">Tinjau & Kirim</h2>
                             <p className="text-[13px] text-slate-400">Periksa kembali data Anda sebelum mengirim pendaftaran.</p>
                         </div>
 

@@ -20,7 +20,7 @@ export default function LandingPage() {
                     <div className="order-2 lg:order-1 px-6 py-9 sm:px-10 sm:py-12 flex flex-col justify-center">
                         <p className="text-[11px] font-semibold tracking-[0.14em] text-[#16223B] uppercase mb-3">Program Pelatihan &amp; Penempatan Kerja 2026</p>
 
-                        <h1 className="font-serif text-3xl sm:text-4xl font-semibold text-[#16223B] leading-tight mb-4">Yuk Daftar Sekarang</h1>
+                        <h1 className="font-swiss text-3xl sm:text-4xl font-semibold text-[#16223B] leading-tight mb-4">Yuk Daftar Sekarang</h1>
 
                         <p className="text-sm sm:text-[15px] text-slate-500 leading-relaxed mb-6">
                             Bangun karier yang lebih baik lewat pelatihan kerja bersertifikat dan jalur penempatan langsung ke mitra industri. Tanpa perlu pengalaman — cukup niat

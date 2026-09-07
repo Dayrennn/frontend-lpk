@@ -66,7 +66,7 @@ export default function DataKelasJepang() {
     return (
         <>
             <div className="mb-7">
-                <h1 className="font-serif text-2xl font-semibold text-slate-800">Data Kelas Jepang</h1>
+                <h1 className="font-swiss text-2xl font-semibold text-slate-800">Data Kelas Jepang</h1>
                 <p className="text-sm text-slate-400 mt-0.5">Daftar kandidat kelas inggris</p>
             </div>
 

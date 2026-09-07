@@ -78,7 +78,7 @@ export default function DataPeserta() {
     return (
         <>
             <div className="mb-7">
-                <h1 className="font-serif text-2xl font-semibold text-slate-800">Data Calon PMI</h1>
+                <h1 className="font-swiss text-2xl font-semibold text-slate-800">Data Calon PMI</h1>
                 <p className="text-sm text-slate-400 mt-0.5">Daftar kandidat yang telah lolos BI Checking &amp; dana Mandiri.</p>
             </div>
 
