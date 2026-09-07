@@ -9,7 +9,7 @@ export const userAPI = createApi({
     tagTypes: ["userAPI"],
     endpoints: (builder) => ({
         register: builder.mutation({
-            query: ({ data }) => ({
+            query: (data) => ({
                 url: "/auth/register",
                 method: "POST",
                 body: data,

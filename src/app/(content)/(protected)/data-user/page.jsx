@@ -1,5 +1,7 @@
 "use client";
 
+import ModalSukses from "@/app/components/modal/suksesModal";
+import TambahUser from "@/app/components/modal/tambahUserModal";
 import { useSeeAllUserQuery } from "@/hooks/api/userSliceAPI";
 import { Eye, Plus } from "lucide-react";
 import Link from "next/link";
@@ -9,7 +11,8 @@ export default function DataUser() {
     const { data, isLoading, isError } = useSeeAllUserQuery();
     const userList = data?.data ?? [];
 
-    const [showModalTambah, setShowModalTambah] = useState(false)
+    const [showModalTambah, setShowModalTambah] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
     return (
         <>
             <div className="mb-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -67,6 +70,8 @@ export default function DataUser() {
                     </table>
                 </div>
             </div>
+            {showModalTambah && <TambahUser onClose={() => setShowModalTambah(false)} onSubmit={() => setSuccess(true)} />}
+            {showSuccess && <ModalSukses onClose={() => setShowSuccess(false)} title="Berhasil" message="Berhasil Tambah User" />}
         </>
     );
 }
