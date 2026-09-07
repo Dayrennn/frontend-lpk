@@ -23,6 +23,7 @@ import Link from "next/link";
 import LogoutModal from "../modal/logoutModal";
 import { useLogoutMutation, useGetMeQuery } from "@/hooks/api/userSliceAPI";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Sidebar({ isOpen = false, onClose = () => {}, isCollapsed = false, onToggleCollapse = () => {} }) {
     const pathname = usePathname();
@@ -84,7 +85,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {}, isCollapse
                 <div className="flex items-center justify-between px-4 py-5 border-b border-slate-800/80">
                     <div className={`flex items-center gap-3 min-w-0 ${isCollapsed ? "justify-center w-full" : ""}`}>
                         <div className="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center shrink-0">
-                            <GraduationCap className="w-5 h-5 text-sky-400" />
+                            <Image src="/images/LogoPutih.png" width={100} height={100} className="text-[#16223B]" />
                         </div>
                         {!isCollapsed && (
                             <div className="min-w-0 flex-1">

@@ -7,6 +7,8 @@ import Link from "next/link";
 import { formatTanggalSimpel } from "@/hooks/helper/formatTanggal";
 import DocButton from "@/app/components/button/DocButton";
 import StatusPill from "@/app/components/statusPill";
+import TambahKandidatModal from "@/app/components/modal/tambahKandidatModal";
+import ModalSukses from "@/app/components/modal/suksesModal";
 
 const statusColorMap = {
     DRAFT: "bg-slate-50 text-slate-600 border-slate-200",
@@ -32,6 +34,9 @@ export default function DataKandidatPage() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [keyword, setKeyword] = useState("");
+
+    const [showModalTambah, setShowModalTambah] = useState("");
+    const [showSuccess, setShowSuccess] = useState("");
 
     const [downloadFile] = useLazyGetDownloadKandidatFileQuery();
     const { data, isLoading, isError } = useSeeAllKandidatAwalQuery({ page, limit: pageSize, search: keyword });
@@ -91,7 +96,6 @@ export default function DataKandidatPage() {
                 <h1 className="font-serif text-2xl font-semibold text-slate-800">Data Kandidat Masuk</h1>
                 <p className="text-sm text-slate-400 mt-0.5">Daftar kandidat yang mendaftar program pelatihan &amp; penempatan kerja.</p>
             </div>
-
             {/* Ringkasan */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
                 <div className="bg-white border border-slate-200 rounded-xl p-5">
@@ -115,11 +119,11 @@ export default function DataKandidatPage() {
                     <p className="text-[13px] text-slate-400 mt-0.5">Status Terverifikasi</p>
                 </div>
             </div>
-
             {/* Pencarian */}
-            <div className="mb-4">
-                <div className="relative max-w-xs">
+            <div className="mb-4 flex items-center justify-between gap-4">
+                <div className="relative max-w-xs w-full">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+
                     <input
                         type="text"
                         placeholder="Cari nama kandidat..."
@@ -128,8 +132,15 @@ export default function DataKandidatPage() {
                         className="w-full pl-9 pr-3 py-2.5 border border-slate-300 rounded-md text-black text-sm bg-white placeholder:text-slate-400 focus:outline-none focus:border-[#16223B] focus:ring-2 focus:ring-[#16223B]/10"
                     />
                 </div>
-            </div>
 
+                <button
+                    onClick={() => setShowModalTambah(true)}
+                    type="button"
+                    className="inline-flex items-center px-4 py-2.5 rounded-md bg-[#16223B] text-white text-sm font-semibold hover:bg-[#1e2d4d] transition-colors"
+                >
+                    Tambah
+                </button>
+            </div>
             {/* Tabel */}
             <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
                 <div className="overflow-x-auto">
@@ -259,6 +270,8 @@ export default function DataKandidatPage() {
                     </div>
                 </div>
             </div>
+            {showModalTambah && <TambahKandidatModal onClose={() => setShowModalTambah(false)} onSubmit={() => setShowSuccess(true)} />}
+            {showSuccess && <ModalSukses onClose={() => setShowSuccess(false)} title="Berhasil" message="Berhasil Tambah Kandidat" />}
         </>
     );
 }
