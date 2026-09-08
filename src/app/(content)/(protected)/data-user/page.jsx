@@ -17,8 +17,8 @@ export default function DataUser() {
         <>
             <div className="mb-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="font-swiss text-2xl font-semibold text-slate-800">Data Kandidat Masuk</h1>
-                    <p className="text-sm text-slate-400 mt-0.5">Daftar kandidat yang mendaftar program pelatihan &amp; penempatan kerja.</p>
+                    <h1 className="font-swiss text-2xl font-semibold text-slate-800">Data Pengguna (User)</h1>
+                    <p className="text-sm text-slate-400 mt-0.5">Kelola akun administrator dan superadministrator sistem.</p>
                 </div>
 
                 <button
