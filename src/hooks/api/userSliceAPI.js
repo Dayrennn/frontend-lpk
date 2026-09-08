@@ -60,7 +60,28 @@ export const userAPI = createApi({
             query: (id) => `/auth/one-user/${id}`,
             providesTags: ["userAPI"],
         }),
+        heartbeat: builder.mutation({
+            query: () => ({
+                url: "/auth/heartbeat",
+                method: "POST",
+            }),
+        }),
+        seeAllUserOnline: builder.query({
+            query: () => "/auth/status",
+            providesTags: ["userAPI"],
+        }),
     }),
 });
 
-export const { useRegisterMutation, useVerifyOtpMutation, useLoginMutation, useLogoutMutation, useGetMeQuery, useModifyMutation, useSeeAllUserQuery, useSeeOneUserQuery } = userAPI;
+export const {
+    useRegisterMutation,
+    useVerifyOtpMutation,
+    useLoginMutation,
+    useLogoutMutation,
+    useGetMeQuery,
+    useModifyMutation,
+    useSeeAllUserQuery,
+    useSeeOneUserQuery,
+    useHeartbeatMutation,
+    useSeeAllUserOnlineQuery
+} = userAPI;

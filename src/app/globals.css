@@ -15,11 +15,16 @@
 
 @font-face {
     font-family: "Swiss";
-    src:
-        url("/fonts/Swiss721-Regular.woff2") format("woff2"),
-        url("/fonts/Swiss721-Regular.woff") format("woff"),
-        url("/fonts/Swiss721-Regular.ttf") format("truetype");
-    font-weight: normal;
+    src: url("/fonts/Swiss721Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Swiss";
+    src: url("/fonts/Swiss721Black.ttf") format("truetype");
+    font-weight: 900;
     font-style: normal;
     font-display: swap;
 }

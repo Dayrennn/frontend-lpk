@@ -2,13 +2,13 @@
 
 import ModalSukses from "@/app/components/modal/suksesModal";
 import TambahUser from "@/app/components/modal/tambahUserModal";
-import { useSeeAllUserQuery } from "@/hooks/api/userSliceAPI";
+import { useSeeAllUserOnlineQuery } from "@/hooks/api/userSliceAPI";
 import { Eye, Plus } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function DataUser() {
-    const { data, isLoading, isError } = useSeeAllUserQuery();
+    const { data, isLoading, isError } = useSeeAllUserOnlineQuery();
     const userList = data?.data ?? [];
 
     const [showModalTambah, setShowModalTambah] = useState(false);
@@ -38,6 +38,7 @@ export default function DataUser() {
                                 <th className="px-5 py-3 font-semibold">Email</th>
                                 <th className="px-5 py-3 font-semibold">Username</th>
                                 <th className="px-5 py-3 font-semibold">Role</th>
+                                <th className="px-5 py-3 font-semibold">Status</th>
                                 <th className="px-5 py-3 font-semibold text-right">Edit</th>
                             </tr>
                         </thead>
@@ -55,6 +56,15 @@ export default function DataUser() {
                                     <td className="px-5 py-3.5 font-medium text-slate-700">{k.email}</td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.username}</td>
                                     <td className="px-5 py-3.5 text-slate-500">{k.role}</td>
+                                    <td className="px-5 py-3.5">
+                                        <span
+                                            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${
+                                                k.status === "Online" ? "bg-green-100 text-green-700" : "bg-orange-100 text-orange-700"
+                                            }`}
+                                        >
+                                            {k.status}
+                                        </span>
+                                    </td>
                                     <td className="px-5 py-3.5 text-right whitespace-nowrap">
                                         <Link
                                             href={`/data-user/${k.id}`}
