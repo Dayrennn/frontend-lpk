@@ -17,8 +17,8 @@ export default function DataUser() {
         <>
             <div className="mb-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="font-swiss text-2xl font-semibold text-slate-800">Data Kandidat Masuk</h1>
-                    <p className="text-sm text-slate-400 mt-0.5">Daftar kandidat yang mendaftar program pelatihan &amp; penempatan kerja.</p>
+                    <h1 className="font-swiss text-2xl font-semibold text-slate-800">Data Pengguna (User)</h1>
+                    <p className="text-sm text-slate-400 mt-0.5">Kelola akun administrator dan superadministrator sistem.</p>
                 </div>
 
                 <button
@@ -44,8 +44,8 @@ export default function DataUser() {
                         <tbody className="divide-y divide-slate-100">
                             {userList.length === 0 && (
                                 <tr>
-                                    <td colSpan={11} className="px-5 py-10 text-center text-sm text-slate-400">
-                                        {isLoading ? "Memuat data..." : isError ? "Gagal memuat data kandidat." : "Tidak ada kandidat yang cocok dengan pencarian."}
+                                    <td colSpan={4} className="px-5 py-10 text-center text-sm text-slate-400">
+                                        {isLoading ? "Memuat data..." : isError ? "Gagal memuat data pengguna." : "Belum ada data pengguna."}
                                     </td>
                                 </tr>
                             )}
@@ -70,7 +70,7 @@ export default function DataUser() {
                     </table>
                 </div>
             </div>
-            {showModalTambah && <TambahUser onClose={() => setShowModalTambah(false)} onSubmit={() => setSuccess(true)} />}
+            {showModalTambah && <TambahUser onClose={() => setShowModalTambah(false)} onSubmit={() => setShowSuccess(true)} />}
             {showSuccess && <ModalSukses onClose={() => setShowSuccess(false)} title="Berhasil" message="Berhasil Tambah User" />}
         </>
     );
