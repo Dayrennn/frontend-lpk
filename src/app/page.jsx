@@ -13,6 +13,7 @@ export default function LandingPage() {
                 backgroundImage: "radial-gradient(#D7DCE5 1px, transparent 1px)",
                 backgroundSize: "22px 22px",
             }}
+        // contoh
         >
             <div className="w-full max-w-5xl bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-2">
