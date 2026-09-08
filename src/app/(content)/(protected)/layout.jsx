@@ -15,13 +15,12 @@ export default function ProtectedLayout({ children }) {
         }
     }, [isLoading, isError, router]);
 
-    if (isLoading) {
-        return <FullPageLoader />;
-    }
+    if (isError) return null;
 
-    if (isError || !data?.data) {
-        return null;
-    }
-
-    return <>{children}</>;
+    return (
+        <>
+            {isLoading && <FullPageLoader />}
+            {children}
+        </>
+    );
 }

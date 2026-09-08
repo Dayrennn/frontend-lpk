@@ -177,7 +177,6 @@ export default function FormRegistration({ step, setStep }) {
         formData.append("agama", agama);
         formData.append("pernikahan", pernikahan);
         formData.append("tempatLahir", tempatLahir);
-        formData.append("pendaftaran", "PENDAFTARAN");
 
         // gambar
         formData.append("cv", cv);
