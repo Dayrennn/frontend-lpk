@@ -708,7 +708,7 @@ export default function FormRegistration({ step, setStep }) {
                                 <IdCard className="w-4 h-4 text-slate-400 shrink-0" />
                                 <div className="min-w-0 flex-1">
                                     <p className="text-sm font-medium text-slate-700">
-                                        KTP Pendamping<span className="text-rose-600 ml-1">*</span>
+                                        KTP Orang Tua / Pendamping<span className="text-rose-600 ml-1">*</span>
                                     </p>
 
                                     <p className="text-[11px] text-slate-400 truncate">{ktpPendamping?.name || "JPG, PNG, JPEG — maks. 5MB (opsional)"}</p>

@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { ArrowRight, Eye, EyeOff, Loader2, CheckCircle2, XCircle } from 'lucide-react';
-import { useLoginMutation } from '@/hooks/api/userSliceAPI';
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { setCredentials } from '@/hooks/api/authSliceAPI';
+import { ArrowRight, Eye, EyeOff, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { useLoginMutation, useGetMeQuery } from "@/hooks/api/userSliceAPI";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { setCredentials } from "@/hooks/api/authSliceAPI";
 
 const inputClass =
-    'w-full px-3.5 py-2.5 border border-slate-300 rounded-md text-sm text-slate-800 bg-white transition-colors ' +
-    'placeholder:text-slate-400 focus:outline-none focus:border-[#16223B] focus:ring-2 focus:ring-[#16223B]/10';
+    "w-full px-3.5 py-2.5 border border-slate-300 rounded-md text-sm text-slate-800 bg-white transition-colors " +
+    "placeholder:text-slate-400 focus:outline-none focus:border-[#16223B] focus:ring-2 focus:ring-[#16223B]/10";
 
 export default function FormLogin() {
     const [login, { isLoading }] = useLoginMutation();
@@ -17,69 +17,80 @@ export default function FormLogin() {
     const router = useRouter();
 
     const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [remember, setRemember] = useState(false);
-
     const [notif, setNotif] = useState(null);
+
+    // Cek sesi yang masih aktif (cookie token masih valid)
+    const { data: meData, isLoading: isCheckingAuth, isSuccess, isError } = useGetMeQuery();
+
+    useEffect(() => {
+        if (isSuccess && meData?.data) {
+            const user = meData.data;
+            dispatch(setCredentials({ user }));
+
+            switch (user.role) {
+                case "Admin":
+                case "SuperAdmin":
+                    router.replace("/dashboard/admin");
+                    break;
+                default:
+                    router.replace("/dashboard");
+            }
+        }
+    }, [isSuccess, meData, dispatch, router]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setNotif(null);
 
         try {
-            const result = await login({ email, password }).unwrap();
+            const result = await login({ email, password, remember }).unwrap();
             const user = result.data;
 
-            dispatch(
-                setCredentials({
-                    user,
-                }),
-            );
-
-            setNotif({ type: 'success', message: 'Login berhasil! Mengalihkan...' });
+            dispatch(setCredentials({ user }));
+            setNotif({ type: "success", message: "Login berhasil! Mengalihkan..." });
 
             setTimeout(() => {
                 switch (user.role) {
-                    case 'Admin':
-                        router.push('/dashboard/admin');
-                        break;
-                    case 'SuperAdmin':
-                        router.push('/dashboard/admin');
+                    case "Admin":
+                    case "SuperAdmin":
+                        router.push("/dashboard/admin");
                         break;
                     default:
-                        router.push('/login');
+                        router.push("/login");
                 }
             }, 800);
         } catch (error) {
             const status = error?.status;
             const serverMessage = error?.data?.message;
 
-            const message =
-                status === 401 || status === 400 || status === 404
-                    ? 'Username atau password salah'
-                    : serverMessage || 'Terjadi kesalahan, silakan coba lagi';
+            const message = status === 401 || status === 400 || status === 404 ? "Username atau password salah" : serverMessage || "Terjadi kesalahan, silakan coba lagi";
 
-            setNotif({ type: 'error', message });
+            setNotif({ type: "error", message });
         }
     };
+
+    if (isCheckingAuth) {
+        return (
+            <div className="flex items-center justify-center py-10">
+                <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
+            </div>
+        );
+    }
+
 
     return (
         <>
             {notif && (
                 <div
                     className={
-                        'flex items-center gap-2.5 px-4 py-3 rounded-md text-sm font-medium mb-4 ' +
-                        (notif.type === 'success'
-                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                            : 'bg-rose-50 text-rose-700 border border-rose-200')
+                        "flex items-center gap-2.5 px-4 py-3 rounded-md text-sm font-medium mb-4 " +
+                        (notif.type === "success" ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-rose-50 text-rose-700 border border-rose-200")
                     }
                 >
-                    {notif.type === 'success' ? (
-                        <CheckCircle2 className="w-4 h-4 shrink-0" />
-                    ) : (
-                        <XCircle className="w-4 h-4 shrink-0" />
-                    )}
+                    {notif.type === "success" ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <XCircle className="w-4 h-4 shrink-0" />}
                     <span>{notif.message}</span>
                 </div>
             )}
@@ -108,9 +119,9 @@ export default function FormLogin() {
                     </div>
                     <div className="relative">
                         <input
-                            className={inputClass + ' pr-10'}
+                            className={inputClass + " pr-10"}
                             required
-                            type={showPassword ? 'text' : 'password'}
+                            type={showPassword ? "text" : "password"}
                             placeholder="Masukkan kata sandi"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -120,14 +131,14 @@ export default function FormLogin() {
                             type="button"
                             onClick={() => setShowPassword((v) => !v)}
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                            aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                            aria-label={showPassword ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"}
                         >
                             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
                     </div>
                 </div>
 
-                <label className="flex items-center gap-2 cursor-pointer select-none w-fit">
+                {/* <label className="flex items-center gap-2 cursor-pointer select-none w-fit">
                     <input
                         type="checkbox"
                         checked={remember}
@@ -135,7 +146,7 @@ export default function FormLogin() {
                         className="w-4 h-4 rounded border-slate-300 text-[#16223B] focus:ring-[#16223B]/20"
                     />
                     <span className="text-[13px] text-slate-600">Ingat saya di perangkat ini</span>
-                </label>
+                </label> */}
 
                 <button
                     type="submit"
