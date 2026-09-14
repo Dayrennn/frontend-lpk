@@ -59,6 +59,7 @@ export default function DataKandidatPage() {
         ktpUrl: { label: 'KTP', ext: 'webp' },
         ktp_pendampingUrl: { label: 'KTP-Pendamping', ext: 'webp' },
         ijazahUrl: { label: 'Ijazah', ext: 'webp' },
+        fotoUrl: { label: 'foto', ext: 'webp' }
     };
 
     const handleDownload = async (id, field, namaKandidat) => {
@@ -182,6 +183,12 @@ export default function DataKandidatPage() {
 
                                     <td className="px-5 py-3.5">
                                         <div className="flex items-center gap-1">
+                                            <DocButton
+                                                label="foto"
+                                                icon={FileText}
+                                                url={k.fotoUrl}
+                                                onClick={() => handleDownload(k.id, 'fotoUrl', k.nama)}
+                                            />
                                             <DocButton
                                                 label="CV"
                                                 icon={FileText}

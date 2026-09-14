@@ -68,6 +68,7 @@ export default function FormRegistration({ step, setStep }) {
     const [ktpPendamping, setKtpPendamping] = useState(null);
     const [ijazah, setIjazah] = useState(null);
     const [sertifikat, setSertifikat] = useState(null);
+    const [foto, setFoto] = useState(null);
 
     // error state: { fieldName: 'pesan error' }
     const [errors, setErrors] = useState({});
@@ -127,6 +128,7 @@ export default function FormRegistration({ step, setStep }) {
             if (!ktpPendamping) stepErrors.ktpPendamping = "KTP Pendamping wajib diunggah";
             if (!kk) stepErrors.kk = "Kartu Keluarga (KK) wajib diunggah";
             if (!ijazah) stepErrors.ijazah = "Ijazah wajib diunggah";
+            if (!foto) stepErrors.foto = "Pas Foto Wajib diunggah";
         }
 
         return stepErrors;
@@ -198,6 +200,7 @@ export default function FormRegistration({ step, setStep }) {
         formData.append("ktp", ktp);
         formData.append("ktp_pendamping", ktpPendamping);
         formData.append("ijazah", ijazah);
+        formData.append("foto", foto);
         if (sertifikat) {
             formData.append("sertifikat", sertifikat);
         }
@@ -544,18 +547,16 @@ export default function FormRegistration({ step, setStep }) {
                                 <FieldError message={errors.kacamatanId} />
                             </div>
                             <div>
-                                <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">
-                                    Kelurahan
-                                </label>
+                                <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Kelurahan</label>
                                 <select className={inputClass + " " + borderClass("kelurahanId")} value={kelurahanId} onChange={handleKelurahanChange} disabled={!kacamatanId}>
-                                    <option value="">{kabupatenId ? "-- Pilih Kelurahan --" : "Pilih Kacamatan terlebih dahulu"}</option>
+                                    <option value="">{kacamatanId ? "-- Pilih Kelurahan --" : "Pilih Kacamatan terlebih dahulu"}</option>
                                     {kelurahanOptions.map((k) => (
                                         <option key={k.id} value={k.id}>
                                             {k.namaKelurahan}
                                         </option>
                                     ))}
                                 </select>
-                                <FieldError message={errors.kacamatanId} />
+                                <FieldError message={errors.kelurahanId} />
                             </div>
                         </div>
 
@@ -722,6 +723,26 @@ export default function FormRegistration({ step, setStep }) {
                         </div>
 
                         <ul className="divide-y divide-slate-100 border border-slate-200 rounded-md overflow-hidden">
+                            <li className={uploadRowClass + (errors.foto ? " bg-rose-50/60" : "")}>
+                                {foto ? (
+                                    <CircleCheck className="w-5 h-5 text-emerald-600 shrink-0" />
+                                ) : (
+                                    <Circle className={"w-5 h-5 shrink-0 " + (errors.foto ? "text-rose-400" : "text-slate-300")} />
+                                )}
+                                <FileText className="w-4 h-4 text-slate-400 shrink-0" />
+                                <div className="min-w-0 flex-1">
+                                    <p className="text-sm font-medium text-slate-700">
+                                        Pas Foto<span className="text-rose-600 ml-1">*</span>
+                                    </p>
+                                    <p className="text-[11px] text-slate-400 truncate">{foto?.name || ".jpg,.jpeg,.png — maks. 5MB"}</p>
+                                    <FieldError message={errors.foto} />
+                                </div>
+                                <label className={uploadButtonClass}>
+                                    <UploadCloud className="w-3.5 h-3.5" />
+                                    {foto ? "Ganti" : "Pilih"}
+                                    <input type="file" accept=".jpg,.jpeg,.png" className="hidden" onChange={handleFileChange(setFoto, "foto")} />
+                                </label>
+                            </li>
                             {/* CV / Resume */}
                             <li className={uploadRowClass + (errors.cv ? " bg-rose-50/60" : "")}>
                                 {cv ? (

@@ -64,6 +64,7 @@ export default function DataKandidatPage() {
         ktpUrl: { label: "KTP", ext: "webp" },
         ktp_pendampingUrl: { label: "KTP-Pendamping", ext: "webp" },
         ijazahUrl: { label: "Ijazah", ext: "webp" },
+        fotoUrl: { label: "foto", ext: "webp" },
     };
 
     const handleDownload = async (id, field, namaKandidat) => {
@@ -183,9 +184,15 @@ export default function DataKandidatPage() {
 
                                     <td className="px-5 py-3.5">
                                         <div className="flex items-center gap-1">
+                                            <DocButton label="Foto" icon={FileText} url={k.fotoUrl} onClick={() => handleDownload(k.id, "fotoUrl", k.nama)} />
                                             <DocButton label="CV" icon={FileText} url={k.cvUrl} onClick={() => handleDownload(k.id, "cvUrl", k.nama)} />
                                             <DocButton label="KTP" icon={IdCard} url={k.ktpUrl} onClick={() => handleDownload(k.id, "ktpUrl", k.nama)} />
-                                            <DocButton label="KTP-Pendamping" icon={IdCard} url={k.ktp_pendampingUrl} onClick={() => handleDownload(k.id, "ktp_pendampingUrl", k.nama)} />
+                                            <DocButton
+                                                label="KTP-Pendamping"
+                                                icon={IdCard}
+                                                url={k.ktp_pendampingUrl}
+                                                onClick={() => handleDownload(k.id, "ktp_pendampingUrl", k.nama)}
+                                            />
                                             <DocButton label="KK" icon={Users} url={k.kkUrl} onClick={() => handleDownload(k.id, "kkUrl", k.nama)} />
                                             <DocButton label="Ijazah" icon={GraduationCap} url={k.ijazahUrl} onClick={() => handleDownload(k.id, "ijazahUrl", k.nama)} />
                                             <DocButton label="Sertifikat" icon={Award} url={k.sertifikatUrl} onClick={() => handleDownload(k.id, "sertifikatUrl", k.nama)} />
