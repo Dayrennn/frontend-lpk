@@ -185,6 +185,7 @@ export default function DataKandidatPage() {
                                         <div className="flex items-center gap-1">
                                             <DocButton label="CV" icon={FileText} url={k.cvUrl} onClick={() => handleDownload(k.id, "cvUrl", k.nama)} />
                                             <DocButton label="KTP" icon={IdCard} url={k.ktpUrl} onClick={() => handleDownload(k.id, "ktpUrl", k.nama)} />
+                                            <DocButton label="KTP-Pendamping" icon={IdCard} url={k.ktp_pendampingUrl} onClick={() => handleDownload(k.id, "ktp_pendampingUrl", k.nama)} />
                                             <DocButton label="KK" icon={Users} url={k.kkUrl} onClick={() => handleDownload(k.id, "kkUrl", k.nama)} />
                                             <DocButton label="Ijazah" icon={GraduationCap} url={k.ijazahUrl} onClick={() => handleDownload(k.id, "ijazahUrl", k.nama)} />
                                             <DocButton label="Sertifikat" icon={Award} url={k.sertifikatUrl} onClick={() => handleDownload(k.id, "sertifikatUrl", k.nama)} />

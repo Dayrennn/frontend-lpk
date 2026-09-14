@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Search, Eye, FileText, IdCard, Users, GraduationCap, Award, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useSeeAllKandidatQuery, useLazyGetDownloadKandidatFileQuery } from '@/hooks/api/kandidatSliceAPI';
+import { useSeeAllKandidatQuery, useLazyGetDownloadKandidatFileQuery, useDeleteKandidatMutation } from '@/hooks/api/kandidatSliceAPI';
 import Link from 'next/link';
 import { formatTanggalSimpel } from '@/hooks/helper/formatTanggal';
 import DocButton from '@/app/components/button/DocButton';
@@ -200,6 +200,7 @@ export default function DataKandidatPage() {
                                                 url={k.kkUrl}
                                                 onClick={() => handleDownload(k.id, 'kkUrl', k.nama)}
                                             />
+                                            <DocButton label="KTP-Pendamping" icon={IdCard} url={k.ktp_pendampingUrl} onClick={() => handleDownload(k.id, "ktp_pendampingUrl", k.nama)} />
                                             <DocButton
                                                 label="Ijazah"
                                                 icon={GraduationCap}

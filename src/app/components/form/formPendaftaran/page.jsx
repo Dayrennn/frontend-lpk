@@ -50,6 +50,8 @@ export default function FormRegistration({ step, setStep }) {
     const [pendidikan, setPendidikan] = useState("");
     const [provinsiId, setProvinsiId] = useState("");
     const [kabupatenId, setKabupatenId] = useState("");
+    const [kacamatanId, setKacamatanId] = useState("");
+    const [kelurahanId, setKelurahanId] = useState("");
     const [bidang_pekerjaan, setBidang_pekerjaan] = useState("");
     const [telephone, setTelephone] = useState("");
     const [telephone_sekunder, setTelephone_sekunder] = useState("");
@@ -57,6 +59,7 @@ export default function FormRegistration({ step, setStep }) {
     const [agama, setAgama] = useState("");
     const [pernikahan, setPernikahan] = useState("");
     const [tempatLahir, setTempatLahir] = useState("");
+    const [alamatSesuaiKTP, setAlamatSesuaiKTP] = useState("");
 
     // field gambar
     const [cv, setCv] = useState(null);
@@ -75,6 +78,10 @@ export default function FormRegistration({ step, setStep }) {
     const selectedProvinsi = asalList.find((p) => p.id === provinsiId);
     const kabupatenOptions = selectedProvinsi?.kabupaten || [];
     const selectedKabupaten = kabupatenOptions.find((k) => k.id === kabupatenId);
+    const kacamatanOptions = selectedKabupaten?.kacamatan || [];
+    const selectedKacamatan = kacamatanOptions.find((k) => k.id === kacamatanId);
+    const kelurahanOptions = selectedKacamatan?.kelurahan || [];
+    const selectedKelurahan = kelurahanOptions.find((k) => k.id === kelurahanId || []);
 
     const [createKandidat, { data, isLoading, isError }] = useCreateKandidatMutation();
     const kode = data?.data ?? {};
@@ -97,8 +104,10 @@ export default function FormRegistration({ step, setStep }) {
             if (tinggiBadan === "" || Number(tinggiBadan) <= 0) stepErrors.tinggiBadan = "Tinggi badan wajib diisi";
             if (berat_badan === "" || Number(berat_badan) <= 0) stepErrors.berat_badan = "Berat badan wajib diisi";
             if (!tgllahir) stepErrors.tgllahir = "Tanggal lahir wajib diisi";
+            if (!alamatSesuaiKTP) stepErrors.alamatSesuaiKTP = "Alamat Wajib di Isi";
             if (!provinsiId) stepErrors.provinsiId = "Provinsi wajib dipilih";
             if (!kabupatenId) stepErrors.kabupatenId = "Kabupaten/Kota wajib dipilih";
+            if (!kacamatanId) stepErrors.kacamatanId = "Kacamatan Wajib di isi";
             if (!telephone) stepErrors.telephone = "Nomor telephone wajib diisi";
             if (!dana) stepErrors.dana = "Status pembiayaan wajib dipilih";
             if (!agama) stepErrors.agama = "Agama wajib dipilih";
@@ -150,6 +159,8 @@ export default function FormRegistration({ step, setStep }) {
                 "agama",
                 "pernikahan",
                 "tempatLahir",
+                "alamatSesuaiKTP",
+                "kacamatanId",
             ];
             const step2Fields = ["tujuan", "tujuanLainnya", "pendidikan"];
 
@@ -170,6 +181,8 @@ export default function FormRegistration({ step, setStep }) {
         formData.append("pendidikan", pendidikan);
         formData.append("provinsiId", provinsiId);
         formData.append("kabupatenId", kabupatenId);
+        formData.append("kacamatanId", kacamatanId);
+        formData.append("kelurahanId", kelurahanId);
         formData.append("bidang_pekerjaan", bidang_pekerjaan);
         formData.append("telephone", telephone);
         formData.append("telephone_sekunder", telephone_sekunder);
@@ -177,6 +190,7 @@ export default function FormRegistration({ step, setStep }) {
         formData.append("agama", agama);
         formData.append("pernikahan", pernikahan);
         formData.append("tempatLahir", tempatLahir);
+        formData.append("alamatSesuaiKTP", alamatSesuaiKTP);
 
         // gambar
         formData.append("cv", cv);
@@ -232,6 +246,18 @@ export default function FormRegistration({ step, setStep }) {
         const value = e.target.value;
         setKabupatenId(value);
         clearError("kabupatenId");
+    };
+
+    const handleKacamatanChange = (e) => {
+        const value = e.target.value;
+        setKacamatanId(value);
+        clearError("kacamatanId");
+    };
+
+    const handleKelurahanChange = (e) => {
+        const value = e.target.value;
+        setKelurahanId(value);
+        clearError("kelurahanId");
     };
 
     const borderClass = (field) => (errors[field] ? "border-rose-400" : "border-slate-300 focus:border-[#16223B]");
@@ -459,6 +485,20 @@ export default function FormRegistration({ step, setStep }) {
                             <FieldError message={errors.tgllahir} />
                         </dl>
 
+                        <div>
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">
+                                Alamat Sesuai KTP<span className="text-rose-600 ml-1">*</span>
+                            </label>
+                            <input
+                                className={inputClass + " " + borderClass("alamatSesuaiKTP")}
+                                type="text"
+                                placeholder="Alamat Sesuai KTP (Jl/Kp/RT/RW/No.)"
+                                value={alamatSesuaiKTP}
+                                onChange={(e) => setAlamatSesuaiKTP(e.target.value)}
+                            />
+                            <FieldError message={errors.alamatSesuaiKTP} />
+                        </div>
+
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">
@@ -488,6 +528,34 @@ export default function FormRegistration({ step, setStep }) {
                                     ))}
                                 </select>
                                 <FieldError message={errors.kabupatenId} />
+                            </div>
+                            <div>
+                                <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">
+                                    Kacamatan<span className="text-rose-600 ml-1">*</span>
+                                </label>
+                                <select className={inputClass + " " + borderClass("kacamatanId")} value={kacamatanId} onChange={handleKacamatanChange} disabled={!kabupatenId}>
+                                    <option value="">{kabupatenId ? "-- Pilih Kacamatan --" : "Pilih Kabupaten terlebih dahulu"}</option>
+                                    {kacamatanOptions.map((k) => (
+                                        <option key={k.id} value={k.id}>
+                                            {k.namaKacamatan}
+                                        </option>
+                                    ))}
+                                </select>
+                                <FieldError message={errors.kacamatanId} />
+                            </div>
+                            <div>
+                                <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">
+                                    Kelurahan
+                                </label>
+                                <select className={inputClass + " " + borderClass("kelurahanId")} value={kelurahanId} onChange={handleKelurahanChange} disabled={!kacamatanId}>
+                                    <option value="">{kabupatenId ? "-- Pilih Kelurahan --" : "Pilih Kacamatan terlebih dahulu"}</option>
+                                    {kelurahanOptions.map((k) => (
+                                        <option key={k.id} value={k.id}>
+                                            {k.namaKelurahan}
+                                        </option>
+                                    ))}
+                                </select>
+                                <FieldError message={errors.kacamatanId} />
                             </div>
                         </div>
 
@@ -818,8 +886,11 @@ export default function FormRegistration({ step, setStep }) {
                                     <div className="flex items-baseline justify-between gap-4 text-sm">
                                         <dt className="text-slate-400">Asal Daerah</dt>
                                         <dd className="text-right font-medium text-slate-700">
-                                            {selectedKabupaten?.namaKabupaten && selectedProvinsi?.namaProvinsi
-                                                ? `${selectedKabupaten.namaKabupaten}, ${selectedProvinsi.namaProvinsi}`
+                                            {selectedKabupaten?.namaKabupaten &&
+                                            selectedProvinsi?.namaProvinsi &&
+                                            selectedKacamatan?.namaKacamatan &&
+                                            selectedKelurahan?.namaKelurahan
+                                                ? `${selectedKabupaten.namaKabupaten}, ${selectedProvinsi.namaProvinsi}, ${selectedKacamatan.namaKacamatan}, ${selectedKelurahan.namaKelurahan}`
                                                 : "—"}
                                         </dd>
                                     </div>

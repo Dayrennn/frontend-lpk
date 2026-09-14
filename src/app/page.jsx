@@ -60,7 +60,9 @@ export default function LandingPage() {
                             <ArrowRight className="w-4 h-4" />
                         </Link>
 
-                        <p className="text-[11px] text-slate-400 mt-3">Pendaftaran tidak dipungut biaya · Kuota tiap gelombang terbatas</p>
+                        <p className="text-[11px] text-slate-400 mt-3">
+                            Pendaftaran tidak dipungut biaya · Kuota tiap gelombang terbatas. <Link href="/login" className="underline"> Login</Link>
+                        </p>
                     </div>
                 </div>
             </div>
