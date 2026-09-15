@@ -34,7 +34,7 @@ export const kandidatAPI = createApi({
         }),
         deleteKandidat: builder.mutation({
             query: (id) => ({
-                url: `/kandidat/${id}`,
+                url: `/kandidat/delete-kandidat/${id}`,
                 method: 'DELETE',
             }),
             invalidatesTags: ['kandidatAPI'],

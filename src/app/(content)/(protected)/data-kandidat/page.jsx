@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, Eye, FileText, IdCard, Users, GraduationCap, Award, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Eye, FileText, IdCard, Users, GraduationCap, Award, ChevronLeft, ChevronRight, Trash } from 'lucide-react';
 import { useSeeAllKandidatQuery, useLazyGetDownloadKandidatFileQuery, useDeleteKandidatMutation } from '@/hooks/api/kandidatSliceAPI';
 import Link from 'next/link';
 import { formatTanggalSimpel } from '@/hooks/helper/formatTanggal';
 import DocButton from '@/app/components/button/DocButton';
 import StatusPill from '@/app/components/statusPill';
+import RemoveModal from '@/app/components/modal/deleteModal';
 
 const statusColorMap = {
     DRAFT: 'bg-slate-50 text-slate-600 border-slate-200',
@@ -32,6 +33,11 @@ export default function DataKandidatPage() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [keyword, setKeyword] = useState('');
+
+    const [removeModal, setShowRemoveModal] = useState(false);
+    const [remove, setRemove] = useState(false);
+
+    const [deleteKandidat] = useDeleteKandidatMutation();
 
     const [downloadFile] = useLazyGetDownloadKandidatFileQuery();
     const { data, isLoading, isError } = useSeeAllKandidatQuery({ page, limit: pageSize, search: keyword });
@@ -85,6 +91,15 @@ export default function DataKandidatPage() {
 
     const goToPrevPage = () => setPage((p) => Math.max(1, p - 1));
     const goToNextPage = () => setPage((p) => Math.min(totalPages, p + 1));
+
+    const handleDelete = (kandidat) => {
+        setRemove(kandidat)
+        setShowRemoveModal(true)
+    }
+
+    const handleRemove = async (id) => {
+        await deleteKandidat(id).unwrap()
+    }
 
     return (
         <>
@@ -256,6 +271,13 @@ export default function DataKandidatPage() {
                                             <Eye className="w-3.5 h-3.5" />
                                             Edit
                                         </Link>
+                                        <button
+                                            onClick={() => handleDelete(k)}
+                                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-300 text-xs font-semibold text-slate-600 hover:border-[#16223B] hover:text-[#16223B] transition-colors"
+                                        >
+                                            <Trash className="w-3.5 h-3.5" />
+                                            Hapus
+                                        </button>
                                     </td>
 
                                     <td className="px-5 py-3.5 text-right">
@@ -307,6 +329,16 @@ export default function DataKandidatPage() {
                     </div>
                 </div>
             </div>
+            {removeModal && (
+                <RemoveModal
+                    onCancel={() => setShowRemoveModal(false)}
+                    title="Hapus"
+                    successMessage="Berhasil Menghapus"
+                    initialData={remove}
+                    onConfirm={handleRemove}
+                    displayName="Nama"
+                />
+            )}
         </>
     );
 }
