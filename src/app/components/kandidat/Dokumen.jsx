@@ -16,6 +16,8 @@ export default function DokumenKandidat({
     setIjazahFile,
     sertifikatFile,
     setSertifikatFile,
+    ktpFile,
+    setKtpFile
 }) {
     const handleChange = (setter, key) => (e) => {
         const file = e.target.files?.[0];
@@ -27,6 +29,19 @@ export default function DokumenKandidat({
 
     return (
         <div className="space-y-5">
+            <div className="space-y-2">
+                <DocumentPreview
+                    title="KTP"
+                    icon={FileText}
+                    url={ktpFile ? URL.createObjectURL(ktpFile) : dataKandidat.ktpUrl}
+                    type="image"
+                />
+                <label className="inline-flex items-center gap-1.5 text-xs font-medium text-[#16223B] cursor-pointer hover:underline">
+                    <Upload className="w-3.5 h-3.5" />
+                    {ktpFile ? `Ganti file (${ktpFile.name})` : 'Upload Ktp baru'}
+                    <input type="file" accept=".pdf" className="hidden" onChange={handleChange(setKtpFile, 'ktp')} />
+                </label>
+            </div>
             {/* CV */}
             <div className="space-y-2">
                 <DocumentPreview

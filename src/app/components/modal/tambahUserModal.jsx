@@ -1,7 +1,7 @@
 "use client";
 
 import { useRegisterMutation } from "@/hooks/api/userSliceAPI";
-import FormOtp from "../form/formOtp";
+import FormOtp from "../form/formAuth/formOtp";
 import { X } from "lucide-react";
 import { useState } from "react";
 import ModalSukses from "./suksesModal";

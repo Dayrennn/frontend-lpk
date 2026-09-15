@@ -19,6 +19,10 @@ export default function DataDiri({
     setProvinsiId,
     kabupatenId,
     setKabupatenId,
+    kacamatanId,
+    setKacamatanId,
+    kelurahanId,
+    setKelurahanId,
     telephone,
     setTelephone,
 }) {
@@ -32,6 +36,11 @@ export default function DataDiri({
 
     const selectedProvinsi = asalList.find((p) => p.id === provinsiId);
     const kabupatenOptions = selectedProvinsi?.kabupaten || [];
+    const selectedKabupaten = kabupatenOptions.find((k) => k.id === kabupatenId);
+    const kacamatanOptions = selectedKabupaten?.kacamatan || [];
+    const selectedKacamatan = kacamatanOptions.find((k) => k.id === kacamatanId);
+    const kelurahanOptions = selectedKacamatan?.kelurahan || [];
+    const selectedKelurahan = kelurahanOptions.find((k) => k.id === kelurahanId || []);
 
     const borderClass = (field) => (errors[field] ? "border-rose-400" : "border-slate-300 focus:border-[#16223B]");
 
@@ -45,6 +54,16 @@ export default function DataDiri({
         const value = e.target.value;
         setKabupatenId(value);
         clearError("kabupatenId");
+    };
+    const handleKacamatanChange = (e) => {
+        const value = e.target.value;
+        setKacamatanId(value);
+        clearError("kacamatanId");
+    };
+    const handleKelurahanChange = (e) => {
+        const value = e.target.value;
+        setKelurahanId(value);
+        clearError("kelurahanId");
     };
 
     const clearError = (field) => {
@@ -122,6 +141,30 @@ export default function DataDiri({
                         {kabupatenOptions.map((k) => (
                             <option key={k.id} value={k.id}>
                                 {k.namaKabupaten}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">
+                        Kacamatan<span className="text-rose-600 ml-1">*</span>
+                    </label>
+                    <select className={inputClass + " " + borderClass("kacamatanId")} value={kacamatanId} onChange={handleKacamatanChange} disabled={!kabupatenId}>
+                        <option value="">{kabupatenId ? "-- Pilih Kabupaten/Kota --" : "Pilih provinsi terlebih dahulu"}</option>
+                        {kacamatanOptions.map((k) => (
+                            <option key={k.id} value={k.id}>
+                                {k.namaKacamatan}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Kelurahan</label>
+                    <select className={inputClass + " " + borderClass("kelurahanId")} value={kelurahanId} onChange={handleKelurahanChange} disabled={!kacamatanId}>
+                        <option value="">{kacamatanId ? "-- Pilih Kelurahan --" : "Pilih Kacamatan terlebih dahulu"}</option>
+                        {kelurahanOptions.map((k) => (
+                            <option key={k.id} value={k.id}>
+                                {k.namaKelurahan}
                             </option>
                         ))}
                     </select>

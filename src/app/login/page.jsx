@@ -1,7 +1,7 @@
 "use client";
 
 import { GraduationCap } from "lucide-react";
-import FormLogin from "../components/form/formLogin";
+import FormLogin from "../components/form/formAuth/formLogin";
 import Image from "next/image";
 
 export default function LoginPage() {
