@@ -84,7 +84,7 @@ export default function DataBelumDapatKelas() {
         const [simpanInterview] = useSimpanInterviewMutation();
         const handleInterviewChange = async (id, value) => {
             try {
-                await simpanInterview({ id, ddata: { interview: value } }).unwrap();
+                await simpanInterview({ id, data: { interview: value } }).unwrap();
             } catch (err) {
                 console.error("Gagal Menyimpan Interview", err);
             }
