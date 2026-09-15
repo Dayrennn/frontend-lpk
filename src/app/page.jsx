@@ -61,7 +61,7 @@ export default function LandingPage() {
                         </Link>
 
                         <p className="text-[11px] text-slate-400 mt-3">
-                            Pendaftaran tidak dipungut biaya · Kuota tiap gelombang terbatas. <Link href="/login" className="underline"> Login</Link>
+                            Kuota tiap gelombang terbatas. <Link href="/login" className="underline"> Login</Link>
                         </p>
                     </div>
                 </div>

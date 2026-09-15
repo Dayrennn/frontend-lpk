@@ -279,7 +279,7 @@ export default function FormRegistration({ step, setStep }) {
                 <h2 className="text-2xl font-semibold text-slate-800">Pendaftaran Berhasil</h2>
 
                 <p className="text-sm text-slate-500 mt-2 max-w-md mx-auto leading-relaxed">
-                    Data pendaftaran berhasil dikirim dan akan diverifikasi oleh panitia. Silakan simpan kode registrasi berikut untuk keperluan pengecekan data.
+                    Data pendaftaran berhasil dikirim dan akan diverifikasi oleh Admin. Silakan simpan kode registrasi berikut untuk keperluan pengecekan data.
                 </p>
 
                 {/* Kode Registrasi */}
