@@ -42,6 +42,7 @@ export default function FormRegistration({ step, setStep }) {
 
     // field biasa
     const [nama, setNama] = useState("");
+    const [nik, setNik] = useState("");
     const [tinggiBadan, setTinggiBadan] = useState("");
     const [berat_badan, setBerat_badan] = useState("");
     const [tgllahir, setTgllahir] = useState("");
@@ -102,6 +103,7 @@ export default function FormRegistration({ step, setStep }) {
 
         if (targetStep === 1) {
             if (!nama.trim()) stepErrors.nama = "Nama lengkap wajib diisi";
+            if (nik === "" || Number(nik) <= 0) stepErrors.nik = "Nik wajib diisi";
             if (tinggiBadan === "" || Number(tinggiBadan) <= 0) stepErrors.tinggiBadan = "Tinggi badan wajib diisi";
             if (berat_badan === "" || Number(berat_badan) <= 0) stepErrors.berat_badan = "Berat badan wajib diisi";
             if (!tgllahir) stepErrors.tgllahir = "Tanggal lahir wajib diisi";
@@ -150,6 +152,7 @@ export default function FormRegistration({ step, setStep }) {
 
             const step1Fields = [
                 "nama",
+                "nik",
                 "tinggiBadan",
                 "berat_badan",
                 "tgllahir",
@@ -176,6 +179,7 @@ export default function FormRegistration({ step, setStep }) {
         const formData = new FormData();
         // field biasa
         formData.append("nama", nama);
+        formData.append("nik", nik);
         formData.append("tinggi", tinggiBadan);
         formData.append("berat_badan", berat_badan);
         formData.append("tgllahir", tgllahir);
@@ -335,6 +339,26 @@ export default function FormRegistration({ step, setStep }) {
                                     if (/^[A-Za-z ]*$/.test(value)) {
                                         setNama(value);
                                         clearError("nama");
+                                    }
+                                }}
+                            />
+                            <FieldError message={errors.nama} />
+                        </div>
+                        <div>
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">
+                                NIK<span className="text-rose-600 ml-1">*</span>
+                            </label>
+                            <input
+                                className={inputClass + " " + borderClass("nik")}
+                                maxLength={100}
+                                type="number"
+                                placeholder="NIK"
+                                value={nik}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (value.length <= 16) {
+                                        setNik(value);
+                                        clearError("nik");
                                     }
                                 }}
                             />
@@ -897,6 +921,10 @@ export default function FormRegistration({ step, setStep }) {
                                     <div className="flex items-baseline justify-between gap-4 text-sm">
                                         <dt className="text-slate-400">Nama Lengkap</dt>
                                         <dd className="text-right font-medium text-slate-700">{nama || "—"}</dd>
+                                    </div>
+                                    <div className="flex items-baseline justify-between gap-4 text-sm">
+                                        <dt className="text-slate-400">NIK</dt>
+                                        <dd className="text-right font-medium text-slate-700">{nik || "—"}</dd>
                                     </div>
                                     <div className="flex items-baseline justify-between gap-4 text-sm">
                                         <dt className="text-slate-400">Tinggi / Berat Badan</dt>
