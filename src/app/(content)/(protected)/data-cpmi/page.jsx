@@ -173,8 +173,8 @@ export default function DataCpmi() {
                     </div>
                 </div>
             </div>
-            ({showModalOrtu && <DataOrtuModal data={selectedOrtu} onCancel={() => setShowModalOrtu(false)} isLoading={false} />}) (
-            {showModalKerabat && <DataKerabatModal data={selectedKerabat} onCancel={() => setShowModalKerabat(false)} isLoading={false} />})
+            {showModalOrtu && <DataOrtuModal data={selectedOrtu} onCancel={() => setShowModalOrtu(false)} isLoading={false} />}
+            {showModalKerabat && <DataKerabatModal data={selectedKerabat} onCancel={() => setShowModalKerabat(false)} isLoading={false} />}
         </>
     );
 }

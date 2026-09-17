@@ -126,7 +126,7 @@ export default function EditCPMIPage() {
                     </form>
                 </main>
             </div>
-            ({showSuccess && <ModalSukses onClose={() => router.push("/data-cpmi")} title="Edit CPMI" message="Berhasil Edit CPMI" />})
+            {showSuccess && <ModalSukses onClose={() => router.push("/data-cpmi")} title="Edit CPMI" message="Berhasil Edit CPMI" />}
         </>
     );
 }
