@@ -17,12 +17,12 @@ export default function LandingPage() {
         >
             <div className="w-full max-w-5xl bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-2">
-                    <Image src="/images/Logo2.png" width={500} height={500} alt="Picture of the author" className="order-1 lg:order-2 w-full h-full object-cover" />
+                    <Image src="/images/gambar-form.png" width={500} height={500} alt="Picture of the author" className="order-1 lg:order-2 w-full h-full object-cover" />
                     <div className="order-2 lg:order-1 px-6 py-9 sm:px-10 sm:py-12 flex flex-col justify-center">
-                        <p className="text-[11px] font-semibold tracking-[0.14em] text-[#16223B] uppercase mb-1">FORMULIR PENDAFTARAN</p>
+                        <p className="font-swiss text-[11px] font-semibold tracking-[0.14em] text-[#16223B] uppercase mb-1">FORMULIR PENDAFTARAN</p>
                         <p className="text-[11px] font-semibold tracking-[0.14em] text-[#16223B] mb-3">Program Pelatihan &amp; Penempatan Kerja Luar Negeri</p>
 
-                        <h1 className=" font-bold text-3xl sm:text-4xl text-[#16223B] leading-tight mb-4">Yuk Daftar Sekarang</h1>
+                        <h1 className="font-swiss font-bold text-3xl sm:text-4xl text-[#16223B] leading-tight mb-4">Yuk Daftar Sekarang</h1>
 
                         <p className="text-sm sm:text-[15px] text-slate-500 leading-relaxed mb-6">
                             Bangun karier yang lebih baik lewat pelatihan kerja bersertifikat dan jalur penempatan langsung ke mitra industri. Tanpa perlu pengalaman — cukup niat
