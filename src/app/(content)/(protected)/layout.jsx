@@ -5,6 +5,7 @@ import UserHeartbeat from "./userHeartbeat";
 import { useGetMeQuery } from "@/hooks/api/userSliceAPI";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 export default function ProtectedLayout({ children }) {
     const router = useRouter();
@@ -21,6 +22,8 @@ export default function ProtectedLayout({ children }) {
 
     return (
         <>
+            <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+
             {isLoading && <FullPageLoader />}
 
             {!isLoading && data && <UserHeartbeat />}

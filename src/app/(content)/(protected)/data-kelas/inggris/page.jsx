@@ -1,10 +1,11 @@
 "use client";
 import StatusDropdown from "@/app/components/dropdown/statusDropdown";
 import StatusPill from "@/app/components/statusPill";
-import { useSeeAllKandidatInggrisQuery, useCreateKandidatForClassMutation, useSimpanInterviewMutation } from "@/hooks/api/kandidatSliceAPI";
+import { useSeeAllKandidatInggrisQuery, useCreateKandidatForClassMutation, useSimpanInterviewMutation, useSimpanPersyaratanMutation } from "@/hooks/api/kandidatSliceAPI";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useState } from "react";
 import { formatTanggalSimpel } from "@/hooks/helper/formatTanggal";
+import toast from "react-hot-toast";
 
 const ojkColorMap = {
     BELUM: "bg-slate-50 text-slate-600 border-slate-200",
@@ -65,8 +66,10 @@ export default function DataKelasInggris() {
     const handleTambah = async (kandidatId, tipeKelas) => {
         try {
             await simpan({ kandidatId, tipeKelas });
+            toast.success("Berhasil Pindah Ke Kelas");
         } catch (error) {
             console.error("Gagal menyimpan:", error);
+            toast.error("Gagal Menyimpan");
         }
     };
 
@@ -74,8 +77,21 @@ export default function DataKelasInggris() {
     const handleInterviewChange = async (id, value) => {
         try {
             await simpanInterview({ id, data: { interview: value } }).unwrap();
+            toast.success("Berhasil Menyimpan Status Interview");
         } catch (err) {
             console.error("Gagal Menyimpan Interview", err);
+            toast.error("Gagal Menyimpan Interview");
+        }
+    };
+
+    const [simpanPersyaratan] = useSimpanPersyaratanMutation();
+    const handleFieldChange = async (id, field, value) => {
+        try {
+            await simpanPersyaratan({ id, data: { [field]: value } }).unwrap();
+            toast.success("Berhasil Pembayaran");
+        } catch (error) {
+            console.error("Gagal menyimpan:", error);
+            toast.error("Gagal Menyimpan");
         }
     };
 

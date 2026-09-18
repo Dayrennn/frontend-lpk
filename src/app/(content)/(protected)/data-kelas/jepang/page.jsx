@@ -1,10 +1,11 @@
 "use client";
 import StatusDropdown from "@/app/components/dropdown/statusDropdown";
 import StatusPill from "@/app/components/statusPill";
-import { useSeeAllKandidatJepangQuery, useCreateKandidatForClassMutation } from "@/hooks/api/kandidatSliceAPI";
+import { useSeeAllKandidatJepangQuery, useCreateKandidatForClassMutation, useSimpanPersyaratanMutation } from "@/hooks/api/kandidatSliceAPI";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useState } from "react";
 import { formatTanggalSimpel } from "@/hooks/helper/formatTanggal";
+import toast from "react-hot-toast";
 
 const ojkColorMap = {
     BELUM: "bg-slate-50 text-slate-600 border-slate-200",
@@ -58,8 +59,21 @@ export default function DataKelasJepang() {
     const handleTambah = async (kandidatId, tipeKelas) => {
         try {
             await simpan({ kandidatId, tipeKelas });
+            toast.success("Berhasil Pindah Kelas");
         } catch (error) {
             console.error("Gagal menyimpan:", error);
+            toast.error("Gagal Menyimpan");
+        }
+    };
+
+    const [simpanPersyaratan] = useSimpanPersyaratanMutation();
+    const handleFieldChange = async (id, field, value) => {
+        try {
+            await simpanPersyaratan({ id, data: { [field]: value } }).unwrap();
+            toast.success("Berhasil Pembayaran");
+        } catch (error) {
+            console.error("Gagal menyimpan:", error);
+            toast.error("Gagal Menyimpan");
         }
     };
 

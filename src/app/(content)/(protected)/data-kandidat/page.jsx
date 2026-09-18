@@ -8,6 +8,7 @@ import { formatTanggalSimpel } from '@/hooks/helper/formatTanggal';
 import DocButton from '@/app/components/button/DocButton';
 import StatusPill from '@/app/components/statusPill';
 import RemoveModal from '@/app/components/modal/deleteModal';
+import toast from 'react-hot-toast';
 
 const statusColorMap = {
     DRAFT: 'bg-slate-50 text-slate-600 border-slate-200',
@@ -84,8 +85,10 @@ export default function DataKandidatPage() {
 
             a.remove();
             window.URL.revokeObjectURL(url);
+            toast.success("Berhasil Mendownload File")
         } catch (error) {
             console.error('Gagal download:', error?.data?.message || error);
+            toast.error("Gagal Mendownload")
         }
     };
 

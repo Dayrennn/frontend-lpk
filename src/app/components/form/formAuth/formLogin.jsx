@@ -21,6 +21,22 @@ export default function FormLogin() {
     const [password, setPassword] = useState("");
     const [remember, setRemember] = useState(false);
     const [notif, setNotif] = useState(null);
+    const [cooldown, setCooldown] = useState(0);
+
+    const startCooldown = (seconds) => {
+        setCooldown(seconds);
+
+        const timer = setInterval(() => {
+            setCooldown((prev) => {
+                if (prev <= 1) {
+                    clearInterval(timer);
+                    return 0;
+                }
+
+                return prev - 1;
+            });
+        }, 1000);
+    };
 
     // Cek sesi yang masih aktif (cookie token masih valid)
     const { data: meData, isLoading: isCheckingAuth, isSuccess, isError } = useGetMeQuery();
@@ -66,6 +82,17 @@ export default function FormLogin() {
             const status = error?.status;
             const serverMessage = error?.data?.message;
 
+            if (status === 429) {
+                startCooldown(60);
+
+                setNotif({
+                    type: "error",
+                    message: serverMessage || "Terlalu banyak percobaan login. Silakan coba lagi nanti.",
+                });
+
+                return;
+            }
+
             const message = status === 401 || status === 400 || status === 404 ? "Username atau password salah" : serverMessage || "Terjadi kesalahan, silakan coba lagi";
 
             setNotif({ type: "error", message });
@@ -79,7 +106,6 @@ export default function FormLogin() {
             </div>
         );
     }
-
 
     return (
         <>
@@ -150,7 +176,7 @@ export default function FormLogin() {
 
                 <button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isLoading || cooldown > 0}
                     className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 rounded-md bg-[#16223B] text-white text-sm font-semibold hover:bg-[#0F1A2E] disabled:opacity-70 disabled:cursor-not-allowed transition-colors"
                 >
                     {isLoading ? (
@@ -158,6 +184,8 @@ export default function FormLogin() {
                             <Loader2 className="w-4 h-4 animate-spin" />
                             Memproses...
                         </>
+                    ) : cooldown > 0 ? (
+                        <>Coba lagi dalam {cooldown}s</>
                     ) : (
                         <>
                             Masuk

@@ -362,7 +362,7 @@ export default function FormRegistration({ step, setStep }) {
                                     }
                                 }}
                             />
-                            <FieldError message={errors.nama} />
+                            <FieldError message={errors.nik} />
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

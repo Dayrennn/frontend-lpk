@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import StatusPill from "@/app/components/statusPill";
 import StatusDropdown from "@/app/components/dropdown/statusDropdown";
 import { formatTanggalSimpel } from "@/hooks/helper/formatTanggal";
+import toast from "react-hot-toast";
 
 const ojkColorMap = {
     BELUM: "bg-slate-50 text-slate-600 border-slate-200",
@@ -36,6 +37,12 @@ const interviewStyle = {
     DITERIMA: "bg-emerald-50 text-emerald-700 border-emerald-200",
 };
 
+const fieldLabel = {
+    interview: "Interview",
+    kelas: "Kelas",
+    pembayaran: "Pembayaran"
+}
+
 export default function DataBelumDapatKelas() {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -61,8 +68,10 @@ export default function DataBelumDapatKelas() {
     const handleTambah = async (kandidatId, tipeKelas) => {
         try {
             await simpan({ kandidatId, tipeKelas });
+            toast.success("Berhasil Pindah Ke Kelas")
         } catch (error) {
             console.error("Gagal menyimpan:", error);
+            toast.error("Gagal Menyimpan")
         }
     };
 
@@ -76,8 +85,10 @@ export default function DataBelumDapatKelas() {
     const handleFieldChange = async (id, field, value) => {
         try {
             await simpanPersyaratan({ id, data: { [field]: value } }).unwrap();
+            toast.success('Berhasil Pembayaran')
         } catch (error) {
             console.error("Gagal menyimpan:", error);
+            toast.error("Gagal Menyimpan")
         }
     };
 
@@ -85,8 +96,10 @@ export default function DataBelumDapatKelas() {
         const handleInterviewChange = async (id, value) => {
             try {
                 await simpanInterview({ id, data: { interview: value } }).unwrap();
+                toast.success('Berhasil Menyimpan Status Interview')
             } catch (err) {
                 console.error("Gagal Menyimpan Interview", err);
+                toast.error('Gagal Menyimpan Interview')
             }
         };
 

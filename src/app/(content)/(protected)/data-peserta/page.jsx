@@ -3,6 +3,7 @@ import StatusPill from "@/app/components/statusPill";
 import { useGetKandidatCalonQuery, useSimpanPersyaratanMutation, useSimpanInterviewMutation } from "@/hooks/api/kandidatSliceAPI";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import StatusDropdown from "@/app/components/dropdown/statusDropdown";
 
 const suratPernyataanStyle = {
@@ -30,6 +31,13 @@ const interviewStyle = {
     SIAP_INTERVIEW: "bg-blue-50 text-blue-700 border-blue-200",
     MENUNGGU_HASIL: "bg-amber-50 text-amber-700 border-amber-200",
     DITERIMA: "bg-emerald-50 text-emerald-700 border-emerald-200",
+};
+
+// Label yang enak dibaca untuk pesan toast per field
+const fieldLabel = {
+    suratPernyataan: "Surat Pernyataan",
+    biayaPelatihan: "Biaya Pelatihan",
+    interview: "Interview",
 };
 
 export default function DataPeserta() {
@@ -60,16 +68,20 @@ export default function DataPeserta() {
     const handleFieldChange = async (id, field, value) => {
         try {
             await simpan({ id, data: { [field]: value } }).unwrap();
+            toast.success(`${fieldLabel[field] ?? "Data"} berhasil disimpan`);
         } catch (error) {
             console.error("Gagal menyimpan:", error);
+            toast.error(`Gagal menyimpan ${fieldLabel[field] ?? "data"}`);
         }
     };
 
     const handleInterviewChange = async (id, value) => {
         try {
             await simpanInterview({ id, data: { interview: value } }).unwrap();
+            toast.success("Status interview berhasil disimpan");
         } catch (error) {
             console.error("Gagal menyimpan interview:", error);
+            toast.error("Gagal menyimpan status interview");
         }
     };
 
