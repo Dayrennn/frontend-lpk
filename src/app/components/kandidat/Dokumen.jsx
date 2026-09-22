@@ -27,6 +27,8 @@ export default function DokumenKandidat({
         onFilesChange?.(key, file);
     };
 
+    console.log("Data Kandidat", dataKandidat)
+    console.log("Data Kandidat Sertifikat", dataKandidat.sertifikatUrl)
     return (
         <div className="space-y-5">
             <div className="space-y-2">
@@ -118,14 +120,14 @@ export default function DokumenKandidat({
                     title="Sertifikat"
                     icon={Award}
                     url={sertifikatFile ? URL.createObjectURL(sertifikatFile) : dataKandidat.sertifikatUrl}
-                    type="image"
+                    type="pdf"
                 />
                 <label className="inline-flex items-center gap-1.5 text-xs font-medium text-[#16223B] cursor-pointer hover:underline">
                     <Upload className="w-3.5 h-3.5" />
                     {sertifikatFile ? `Ganti file (${sertifikatFile.name})` : 'Upload Sertifikat baru'}
                     <input
                         type="file"
-                        accept="image/*"
+                        accept=".pdf"
                         className="hidden"
                         onChange={handleChange(setSertifikatFile, 'sertifikat')}
                     />

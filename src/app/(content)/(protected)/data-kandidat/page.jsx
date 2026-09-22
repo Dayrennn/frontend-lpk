@@ -158,6 +158,7 @@ export default function DataKandidatPage() {
                         <thead>
                             <tr className="text-left text-[11px] uppercase tracking-wide text-slate-400 border-b border-slate-100">
                                 <th className="px-5 py-3 font-semibold">Nama</th>
+                                <th className="px-5 py-3 font-semibold">Kode Registrasi</th>
                                 <th className="px-5 py-3 font-semibold">Umur</th>
                                 <th className="px-5 py-3 font-semibold">Tujuan</th>
                                 <th className="px-5 py-3 font-semibold">Pendidikan</th>
@@ -189,6 +190,9 @@ export default function DataKandidatPage() {
                                 <tr key={k.id} className="hover:bg-slate-50/60 align-top">
                                     <td className="px-5 py-3.5 font-medium text-slate-700 capitalize whitespace-nowrap">
                                         {k.nama}
+                                    </td>
+                                    <td className="px-5 py-3.5 font-medium text-slate-700 capitalize whitespace-nowrap">
+                                        {k.kodeRegistrasi}
                                     </td>
                                     <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">{k.umur} th</td>
                                     <td className="px-5 py-3.5 text-slate-500 capitalize whitespace-nowrap">
