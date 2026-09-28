@@ -22,7 +22,7 @@ export default function ProtectedLayout({ children }) {
 
     return (
         <>
-            <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+            <Toaster position="bottom-right" toastOptions={{ duration: 3000 }} />
 
             {isLoading && <FullPageLoader />}
 

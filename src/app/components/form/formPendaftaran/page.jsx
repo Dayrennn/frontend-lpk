@@ -6,6 +6,7 @@ import { useCreateKandidatMutation } from "@/hooks/api/kandidatSliceAPI";
 import Link from "next/link";
 import { useSeeAllAsalQuery } from "@/hooks/api/asalSliceAPI";
 import { calculateAge } from "@/hooks/helper/calculateAge";
+import toast from "react-hot-toast";
 
 const NEGARA_OPTIONS = ["Jepang", "Kuwait", "Turkey", "Albania", "Montenegro", "Lainnya"];
 const PENDIDIKAN_OPTIONS = ["SD", "SMP", "SMA/SMK", "D3", "S1", "S2", "S3"];
@@ -216,7 +217,11 @@ export default function FormRegistration({ step, setStep }) {
 
             setShowSuccess(true);
         } catch (err) {
-            console.error("ERROR", err);
+            console.error("ERROR FULL:", err);
+
+            const message = err?.data?.message || err?.error || err?.message || "Terjadi Kesalahan";
+
+            toast.error(message);
         }
     };
 
