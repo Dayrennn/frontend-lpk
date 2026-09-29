@@ -784,13 +784,13 @@ export default function FormRegistration({ step, setStep }) {
                                     <p className="text-sm font-medium text-slate-700">
                                         CV / Resume<span className="text-rose-600 ml-1">*</span>
                                     </p>
-                                    <p className="text-[11px] text-slate-400 truncate">{cv?.name || "PDF, DOC, DOCX — maks. 5MB"}</p>
+                                    <p className="text-[11px] text-slate-400 truncate">{cv?.name || "PDF — maks. 5MB"}</p>
                                     <FieldError message={errors.cv} />
                                 </div>
                                 <label className={uploadButtonClass}>
                                     <UploadCloud className="w-3.5 h-3.5" />
                                     {cv ? "Ganti" : "Pilih"}
-                                    <input type="file" accept=".pdf,.doc,.docx" className="hidden" onChange={handleFileChange(setCv, "cv")} />
+                                    <input type="file" accept=".pdf" className="hidden" onChange={handleFileChange(setCv, "cv")} />
                                 </label>
                             </li>
 
